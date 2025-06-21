@@ -803,7 +803,7 @@
         }
 
         /* --- New Checkout Form Styling --- */
-        #buyer-info-form-container {
+        #buyer-info-form { /* Changed from container to form itself */
             display: none; /* Hidden by default */
             flex-direction: column;
             gap: 20px;
@@ -811,7 +811,7 @@
             border-top: 1px solid #3A0066;
             margin-top: 20px;
         }
-        #buyer-info-form-container.active {
+        #buyer-info-form.active { /* Apply active class to the form itself */
             display: flex;
         }
 
@@ -933,7 +933,7 @@
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>High-quality Journal</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Writing Prompts</li>
                         </ul>
-                        <p class="price text-neon-magenta">200.00DH</p>
+                        <p class="price text-neon-magenta">200.00 DH</p>
                     </div>
 
                     <!-- Product Pack 2: The Thoughtful Collection -->
@@ -945,7 +945,7 @@
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>10-15 Pre-written Cards</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>5 Blank Cards</li>
                         </ul>
-                        <p class="price text-neon-magenta">300.00DH</p>
+                        <p class="price text-neon-magenta">300.00 DH</p>
                     </div>
 
                     <!-- Product Pack 3: The Complete Experience -->
@@ -957,7 +957,7 @@
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Thoughtful Collection</li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Exclusive Stickers</li>
                         </ul>
-                        <p class="price text-neon-magenta">400.00DH</p>
+                        <p class="price text-neon-magenta">400.00 DH</p>
                     </div>
                 </div>
             </section>
@@ -998,7 +998,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="faymane12@gmail.com" class="text-neon-magenta hover:text-neon-cyan transition-colors duration-200 text-shadow-neon">
+                            <a href="mailto:faymane12@gmail.com" class="text-neon-magenta hover:text-neon-cyan transition-colors duration-200 text-shadow-neon">
                                 Initiate Comms
                             </a>
                         </li>
@@ -1015,7 +1015,7 @@
 
     <!-- Cart Modal HTML Structure -->
     <div id="cart-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-md p-4 hidden animate-fadeIn">
-        <div class="bg-[#0F0F2A] rounded-xl shadow-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto transform scale-95 animate-scaleIn border border-[#5A0099]">
+        <div class="bg-[#0F0F2A] rounded-xl shadow-2xl p-6 w-full max-w_lg max-h-[90vh] overflow-y-auto transform scale-95 animate-scaleIn border border-[#5A0099]">
             <div class="flex justify-between items-center border-b border-[#3A0066] pb-3 mb-4">
                 <h3 class="text-2xl font-semibold text-neon-cyan">Quantum Cart Diagnostics</h3>
                 <button id="close-cart-modal" class="p-2 rounded-full bg-[#1A0033] hover:bg-[#330066] transition-colors focus:outline-none focus:ring-2 focus:ring-neon-green btn-futuristic" aria-label="Close">
@@ -1192,7 +1192,7 @@
             const particlesGeometry = new THREE.BufferGeometry();
             const particlesCount = 3000; 
             const posArray = new Float32Array(particlesCount * 3);
-            const colorArray = new Float32Array(particlesCount * 3); /* Typo Fixed: Changed Float332Array to Float32Array */
+            const colorArray = new Float32Array(particlesCount * 3); 
 
             const colors = [ new THREE.Color(0x00FFFF), new THREE.Color(0x8A2BE2), new THREE.Color(0xFF00FF) ];
 
@@ -1251,11 +1251,11 @@
             const closeCartModalButton = document.getElementById('close-cart-modal');
             const cartItemsContainer = document.getElementById('cart-items-container');
             const cartTotalSpan = document.getElementById('cart-total');
-            const proceedToBuyerInfoButton = document.getElementById('proceed-to-buyer-info'); // New button
+            const proceedToBuyerInfoButton = document.getElementById('proceed-to-buyer-info'); 
             
-            const buyerInfoFormContainer = document.getElementById('buyer-info-form'); // The form itself
+            const buyerInfoFormContainer = document.getElementById('buyer-info-form'); 
             const submitOrderButton = document.getElementById('submit-order-button');
-            const formMessage = document.getElementById('form-message'); // Message for form submission status
+            const formMessage = document.getElementById('form-message'); 
 
             // Holographic Product Detail Modal Elements
             const productDetailModal = document.getElementById('product-detail-modal');
@@ -1266,7 +1266,7 @@
             const detailProductFeatures = document.getElementById('detail-product-features');
             const detailProductPrice = document.getElementById('detail-product-price');
             const addToCartFromDetailButton = document.getElementById('add-to-cart-from-detail');
-            const quantumModuleCards = document.querySelectorAll('.quantum-module-card'); // Select all product cards
+            const quantumModuleCards = document.querySelectorAll('.quantum-module-card'); 
 
             // --- IMPORTANT: Replace with YOUR Formspree Endpoint URL ---
             // You get this from formspree.io after creating a new form.
@@ -1279,21 +1279,21 @@
                     name: 'The Bookworm Pack',
                     description: 'A beautifully designed "Open When You" journal/book with prompts for personalization. Perfect for those who love to write and create a truly unique gift.',
                     features: ['High-quality Journal', 'Writing Prompts', 'Elegant Design', 'Lasting Personal Gift', 'Quantum-bound Paper'],
-                    price: 200.00,
+                    price: 200.00, // Price in DH
                     imageUrl: 'https://placehold.co/400x400/3A0066/9FE2BF?text=Bookworm+Pack'
                 },
                 'thoughtful-collection': {
                     name: 'The Thoughtful Collection',
                     description: 'A set of pre-designed "Open When You" cards for various occasions, along with some blank cards for your personal touch. Ready to use and easy to share!',
                     features: ['10-15 Pre-written Cards', '5 Blank Cards', 'Premium Card Stock', 'Convenient & Heartwarming', 'Sentient Ink Technology'],
-                    price: 300.00,
+                    price: 300.00, // Price in DH
                     imageUrl: 'https://placehold.co/400x400/3A0066/9FE2BF?text=Cards+Pack'
                 },
                 'complete-experience': {
                     name: 'The Complete Experience',
                     description: 'Our most comprehensive pack! Includes a full set of "Open When You" cards and an exclusive sticker sheet to decorate your letters and gifts.',
                     features: ['All Thoughtful Collection Features', 'Exclusive Sticker Sheet', 'Decorative Embellishments', 'Perfect for Creative Gifting', 'Temporal-Resonance Stickers'],
-                    price: 400.00,
+                    price: 400.00, // Price in DH
                     imageUrl: 'https://placehold.co/400x400/3A0066/9FE2BF?text=Cards+%26+Stickers'
                 }
             };
@@ -1319,7 +1319,7 @@
                                 <img src="${item.imageUrl}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md mr-4" onerror="this.onerror=null;this.src='https://placehold.co/100x100/1A1A3A/9FE2BF?text=N/A';" />
                                 <div>
                                     <p class="font-semibold text-neon-cyan text-lg">${item.name}</p>
-                                    <p class="text-muted-gray text-sm">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                                    <p class="text-muted-gray text-sm">${item.price.toFixed(2)} DH x ${item.quantity}</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-2">
@@ -1340,7 +1340,7 @@
                     });
                 }
 
-                cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+                cartTotalSpan.textContent = `${total.toFixed(2)} DH`; // Changed to DH
                 saveCart(); 
             }
 
@@ -1383,7 +1383,7 @@
                         li.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>${feature}`;
                         detailProductFeatures.appendChild(li);
                     });
-                    detailProductPrice.textContent = `$${product.price.toFixed(2)}`;
+                    detailProductPrice.textContent = `${product.price.toFixed(2)} DH`; // Changed to DH
                     
                     addToCartFromDetailButton.dataset.productId = productId;
 
@@ -1500,10 +1500,10 @@
                 const formData = new FormData(buyerInfoFormContainer);
                 const orderDetails = [];
                 cart.forEach(item => {
-                    orderDetails.push(`${item.name} (x${item.quantity}) - $${item.price.toFixed(2)} each`);
+                    orderDetails.push(`${item.name} (x${item.quantity}) - ${item.price.toFixed(2)} DH each`);
                 });
                 formData.append('Order Details', orderDetails.join('\n'));
-                formData.append('Total Amount', `$${cartTotalSpan.textContent}`);
+                formData.append('Total Amount', `${cartTotalSpan.textContent}`); // Already has DH
                 formData.append('Payment Method', 'Pay on Delivery');
 
                 try {
@@ -1524,11 +1524,6 @@
                         updateCartDisplay(); // Refresh cart display
                         buyerInfoFormContainer.reset(); // Clear form fields
                         
-                        // Option 1: Stay on form with success message
-                        // submitOrderButton.disabled = false;
-                        // submitOrderButton.textContent = 'Finalize Quantum Order';
-
-                        // Option 2: Transition back to empty cart view after success
                         setTimeout(() => {
                             cartModal.classList.add('hidden'); // Close modal
                             formMessage.classList.remove('success', 'error'); // Clear message for next open
