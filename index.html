@@ -213,17 +213,16 @@
         }
 
         .loading-text {
-            color: #E0BBE4; /* Base color for loading text */
+            color: #E0BBE4; 
             font-size: 2.2rem;
             opacity: 0;
             animation: fadeIn 1s forwards;
-            animation-delay: 2.5s; /* Appear after circles start */
+            animation-delay: 2.5s; 
             letter-spacing: 3px;
             text-shadow: 0 0 15px #FF00FF, 0 0 20px #00F0FF;
             text-align: center;
             padding: 0 20px;
         }
-        /* Removed loading-subtext and loading-status-message styles as elements are removed from HTML */
 
 
         /* Ensure main content is hidden until loaded */
@@ -283,10 +282,10 @@
             visibility: visible; 
         }
         /* Staggered reveal for children within revealed sections */
-        .reveal-on-scroll.is-revealed > *:not(h2) { /* Exclude h2 as it has its own glitch effect */
+        .reveal-on-scroll.is-revealed > *:not(h2) { 
             animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            opacity: 0; /* Initially hide children for staggering */
-            visibility: hidden; /* Hide children until their stagger starts */
+            opacity: 0; 
+            visibility: hidden; 
         }
         .reveal-on-scroll.is-revealed > *:not(h2):nth-child(1) { animation-delay: 0.2s; visibility: visible; }
         .reveal-on-scroll.is-revealed > *:not(h2):nth-child(2) { animation-delay: 0.4s; visibility: visible; }
@@ -803,6 +802,70 @@
             }
         }
 
+        /* --- New Checkout Form Styling --- */
+        #buyer-info-form-container {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            border-top: 1px solid #3A0066;
+            margin-top: 20px;
+        }
+        #buyer-info-form-container.active {
+            display: flex;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            color: #00F0FF; /* Neon label */
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: #1A1A3A; /* Dark input background */
+            border: 1px solid #3A0066;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #E0E0FF; /* Light text */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(138, 43, 226, 0.1); /* Subtle inner glow */
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #00FFFF; /* Neon focus border */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), inset 0 0 5px rgba(0, 255, 255, 0.2);
+        }
+        .form-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+        .form-message.success {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            display: block;
+        }
+        .form-message.error {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #FF0000;
+            border: 1px solid #FF0000;
+            display: block;
+        }
+
+
     </style>
 </head>
 <body class="min-h-screen">
@@ -960,23 +1023,45 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-neon-green"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
+            <!-- Cart Items Display -->
             <div id="cart-items-container" class="space-y-4 max-h-80 overflow-y-auto pr-2">
-                <!-- Cart items will be injected here by JavaScript -->
                 <p class="text-center text-muted-gray">No anomalies detected in cart matrix.</p>
             </div>
+            <!-- Cart Summary and Checkout Button -->
             <div id="cart-summary" class="flex justify-between items-center mt-6 pt-4 border-t border-[#3A0066]">
                 <p class="text-xl font-bold text-neon-green">Total Data Transfer: <span id="cart-total">$0.00</span></p>
-                <button id="checkout-button" class="py-3 px-6 rounded-lg font-semibold btn-futuristic">
-                    <!-- Wallet icon (Lucide SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small mr-2 text-white"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M12 17H5a2 2 0 0 0 0 4h14v-4"/><path d="M18 12a2 2 0 0 0 2 2h2v-2h-2a2 2 0 0 0-2-2z"/></svg>Initiate Transaction
+                <button id="proceed-to-buyer-info" class="py-3 px-6 rounded-lg font-semibold btn-futuristic">
+                    Proceed to Quantum Transfer
                 </button>
             </div>
-            <div id="checkout-confirmation" class="mt-4 text-center text-neon-green font-bold text-lg hidden animate-fadeInUp">
-                Quantum Transfer Complete! (Simulated)
-            </div>
-            <p class="mt-4 text-sm text-muted-gray text-center">
-                *This is a simulated transaction. Cart data is stored locally in your browser.
-            </p>
+            
+            <!-- Buyer Information Form -->
+            <form id="buyer-info-form" class="mt-6 hidden flex-col gap-4">
+                <h4 class="text-xl font-semibold text-neon-cyan text-center mb-4">Recipient Data Input</h4>
+                <div class="form-group">
+                    <label for="buyer-name">Full Name:</label>
+                    <input type="text" id="buyer-name" name="name" required placeholder="John Doe" class="w-full">
+                </div>
+                <div class="form-group">
+                    <label for="buyer-email">Email for Confirmation:</label>
+                    <input type="email" id="buyer-email" name="email" required placeholder="user@quantum-comm.com" class="w-full">
+                </div>
+                <div class="form-group">
+                    <label for="buyer-address">Delivery Coordinates (Address):</label>
+                    <textarea id="buyer-address" name="address" required rows="3" placeholder="Sector 7G, Quadrant Alpha, Milky Way Galaxy" class="w-full"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="buyer-phone">Contact Frequency (Phone):</label>
+                    <input type="tel" id="buyer-phone" name="phone" placeholder="+1234567890" class="w-full">
+                </div>
+                <p class="text-sm text-center text-muted-gray">
+                    Payment will be initiated upon successful quantum reception of the physical module.
+                </p>
+                <button type="submit" id="submit-order-button" class="py-3 px-6 rounded-lg font-semibold btn-futuristic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small mr-2 text-white"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M12 17H5a2 2 0 0 0 0 4h14v-4"/><path d="M18 12a2 2 0 0 0 2 2h2v-2h-2a2 2 0 0 0-2-2z"/></svg>Finalize Quantum Order
+                </button>
+                <div id="form-message" class="form-message"></div>
+            </form>
         </div>
     </div>
 
@@ -1010,7 +1095,6 @@
     <!-- JavaScript for Three.js background, Cart, and Holographic Modals -->
     <script>
         // --- Sound Effects (Tone.js) ---
-        // Initialize Tone.js with some basic synths for futuristic sounds
         const synth = new Tone.PolySynth(Tone.Synth, {
             oscillator: { type: "square" },
             envelope: { attack: 0.01, decay: 0.1, sustain: 0.2, release: 0.5 },
@@ -1068,7 +1152,6 @@
 
         // --- Loading Screen & Main Content Reveal Logic ---
         // Removed loadingStatusElement, loadingSubText elements from HTML and their corresponding JS references
-        // Simplified loadingPhases array for a single static message
         const loadingMainText = document.getElementById('loading-main-text');
 
         function updateLoadingStatus(phaseIndex) {
@@ -1168,9 +1251,11 @@
             const closeCartModalButton = document.getElementById('close-cart-modal');
             const cartItemsContainer = document.getElementById('cart-items-container');
             const cartTotalSpan = document.getElementById('cart-total');
-            const checkoutButton = document.getElementById('checkout-button');
-            const checkoutConfirmation = document.getElementById('checkout-confirmation');
-            const quantumModuleCards = document.querySelectorAll('.quantum-module-card'); 
+            const proceedToBuyerInfoButton = document.getElementById('proceed-to-buyer-info'); // New button
+            
+            const buyerInfoFormContainer = document.getElementById('buyer-info-form'); // The form itself
+            const submitOrderButton = document.getElementById('submit-order-button');
+            const formMessage = document.getElementById('form-message'); // Message for form submission status
 
             // Holographic Product Detail Modal Elements
             const productDetailModal = document.getElementById('product-detail-modal');
@@ -1181,6 +1266,12 @@
             const detailProductFeatures = document.getElementById('detail-product-features');
             const detailProductPrice = document.getElementById('detail-product-price');
             const addToCartFromDetailButton = document.getElementById('add-to-cart-from-detail');
+            const quantumModuleCards = document.querySelectorAll('.quantum-module-card'); // Select all product cards
+
+            // --- IMPORTANT: Replace with YOUR Formspree Endpoint URL ---
+            // You get this from formspree.io after creating a new form.
+            const FORMSPREE_ENDPOINT = "https://formspree.io/f/movwnydd"; 
+            // Example: "https://formspree.io/f/xyzaqrnm"
 
             // Define product data (centralized for both product cards and detail modal)
             const productsData = {
@@ -1217,9 +1308,9 @@
 
                 if (cart.length === 0) {
                     cartItemsContainer.innerHTML = '<p class="text-center text-muted-gray">No anomalies detected in cart matrix.</p>';
-                    checkoutButton.disabled = true;
+                    proceedToBuyerInfoButton.disabled = true;
                 } else {
-                    checkoutButton.disabled = false;
+                    proceedToBuyerInfoButton.disabled = false;
                     cart.forEach(item => {
                         const itemElement = document.createElement('div');
                         itemElement.className = 'flex items-center justify-between border-b border-[#330066] pb-3';
@@ -1314,12 +1405,17 @@
                 playZap(); 
                 cartModal.classList.remove('hidden');
                 updateCartDisplay(); 
+                // Ensure cart display is shown first, not the form
+                cartItemsContainer.classList.remove('hidden');
+                proceedToBuyerInfoButton.classList.remove('hidden');
+                buyerInfoFormContainer.classList.add('hidden');
+                formMessage.classList.remove('success', 'error'); // Hide previous form messages
             });
 
             closeCartModalButton.addEventListener('click', () => {
                 playZap(); 
                 cartModal.classList.add('hidden');
-                checkoutConfirmation.classList.add('hidden'); 
+                formMessage.classList.remove('success', 'error'); // Hide form messages on close
             });
 
             // Close cart modal if clicking outside
@@ -1327,7 +1423,7 @@
                 if (event.target === cartModal) {
                     playZap();
                     cartModal.classList.add('hidden');
-                    checkoutConfirmation.classList.add('hidden');
+                    formMessage.classList.remove('success', 'error'); // Hide form messages on close
                 }
             });
 
@@ -1373,30 +1469,100 @@
                 updateCartDisplay();
             });
 
-            // Checkout functionality
-            checkoutButton.addEventListener('click', () => {
-                if (cart.length === 0) return; 
+            // --- New Checkout Flow Logic ---
+            proceedToBuyerInfoButton.addEventListener('click', () => {
+                if (cart.length === 0) return;
+                playClick(); // Sound for proceeding
 
-                checkoutConfirmation.classList.remove('hidden');
-                checkoutButton.disabled = true; 
-                playZap(); 
+                // Hide cart items and show buyer info form
+                cartItemsContainer.classList.add('hidden');
+                proceedToBuyerInfoButton.classList.add('hidden');
+                buyerInfoFormContainer.classList.remove('hidden'); // Show the form
+                buyerInfoFormContainer.classList.add('active'); // Apply active styles
 
-                setTimeout(() => {
-                    cart = []; 
-                    updateCartDisplay();
-                    checkoutConfirmation.classList.add('hidden'); 
-                    cartModal.classList.add('hidden'); 
-                    checkoutButton.disabled = false; 
-                    playSuccessChime(); 
-                }, 2000);
+                // Pre-fill form (optional, for testing)
+                // document.getElementById('buyer-name').value = "Aymane Fakihi";
+                // document.getElementById('buyer-email').value = "aymane.fakihi@example.com";
+                // document.getElementById('buyer-address').value = "123 Quantum Way, Cyber City";
+                // document.getElementById('buyer-phone').value = "0123456789";
             });
 
-            updateCartDisplay();
+            buyerInfoFormContainer.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Prevent default form submission (page reload)
+                playZap(); // Sound for submitting order
+
+                submitOrderButton.disabled = true;
+                submitOrderButton.textContent = 'Transferring Data...';
+                formMessage.classList.remove('success', 'error'); // Clear previous messages
+                formMessage.textContent = 'Processing your order...';
+                formMessage.style.display = 'block';
+
+                const formData = new FormData(buyerInfoFormContainer);
+                const orderDetails = [];
+                cart.forEach(item => {
+                    orderDetails.push(`${item.name} (x${item.quantity}) - $${item.price.toFixed(2)} each`);
+                });
+                formData.append('Order Details', orderDetails.join('\n'));
+                formData.append('Total Amount', `$${cartTotalSpan.textContent}`);
+                formData.append('Payment Method', 'Pay on Delivery');
+
+                try {
+                    const response = await fetch(FORMSPREE_ENDPOINT, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        playSuccessChime();
+                        formMessage.classList.add('success');
+                        formMessage.textContent = 'Quantum Order Finalized! Confirmation sent to your email. Expect delivery soon!';
+                        cart = []; // Clear local cart
+                        saveCart(); // Update local storage
+                        updateCartDisplay(); // Refresh cart display
+                        buyerInfoFormContainer.reset(); // Clear form fields
+                        
+                        // Option 1: Stay on form with success message
+                        // submitOrderButton.disabled = false;
+                        // submitOrderButton.textContent = 'Finalize Quantum Order';
+
+                        // Option 2: Transition back to empty cart view after success
+                        setTimeout(() => {
+                            cartModal.classList.add('hidden'); // Close modal
+                            formMessage.classList.remove('success', 'error'); // Clear message for next open
+                            submitOrderButton.disabled = false;
+                            submitOrderButton.textContent = 'Finalize Quantum Order';
+                            cartItemsContainer.classList.remove('hidden'); // Show cart items again
+                            proceedToBuyerInfoButton.classList.remove('hidden'); // Show button
+                            buyerInfoFormContainer.classList.add('hidden'); // Hide form
+                        }, 4000); // Close after 4 seconds
+
+                    } else {
+                        playZap(); // Error sound
+                        formMessage.classList.add('error');
+                        const data = await response.json();
+                        formMessage.textContent = data.errors ? data.errors.map(err => err.message).join(', ') : 'Error processing order. Please try again.';
+                    }
+                } catch (error) {
+                    playZap(); // Error sound
+                    formMessage.classList.add('error');
+                    formMessage.textContent = 'Network error. Please check your connection and try again.';
+                    console.error('Form submission error:', error);
+                } finally {
+                    submitOrderButton.disabled = false; // Re-enable button on error too
+                    submitOrderButton.textContent = 'Finalize Quantum Order';
+                }
+            });
+
+
+            updateCartDisplay(); // Initial display update
         });
 
         // --- Global Load Event Listener ---
         window.addEventListener('load', () => {
-            // Update loading status once for static text
+            // Start loading sequence (will show static text as per new design)
             updateLoadingStatus(0); 
 
             // Initialize Three.js after a short delay for better performance
@@ -1404,7 +1570,7 @@
                 initializeThreeJS(); 
             }, 500); 
 
-            // Hide loading screen after full loading sequence duration (4.5s is still good for animation)
+            // Hide loading screen after full loading sequence duration (4.5s)
             setTimeout(() => {
                 hideLoadingScreen();
             }, 4500); 
