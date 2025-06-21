@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aymane Fakihi - OPEN WHEN YOU Shop // Quantum Nexus</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js CDN for the immersive background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Tone.js CDN for futuristic sound effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            background-color: #00000A; /* Even deeper black for ultimate contrast */
+            position: relative; /* For noise overlay */
+            color: #E0E0FF; /* Soft white for general text */
+        }
+
+        /* Global Noise/Grain Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999; /* Below loading screen, above content */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABF/lXQAAAABlBMVEVHcEzMzMw4s4j+AAAACHRSTlMAAAAAAHaJ+ikAAAAOSURBVAjXY2AU/4EBAAQAAIABhJjJ1gAAAABJRU5ErkJggg=='); /* Tiny transparent noise pattern */
+            background-repeat: repeat;
+            background-size: 2px 2px;
+            animation: noise-flicker 0.2s infinite alternate; /* Fast flicker */
+            opacity: 0.03; /* Very subtle */
+        }
+
+        @keyframes noise-flicker {
+            0% { opacity: 0.03; }
+            50% { opacity: 0.04; }
+            100% { opacity: 0.03; }
+        }
+
+        /* General site animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; } 
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .animate-scaleIn { animation: scaleIn 0.5s ease-out forwards; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
+
+        /* Digital Glitch Effect for Titles */
+        .glitch-text {
+            position: relative;
+            display: inline-block; 
+            transition: color 0.3s ease; 
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text); 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: all 0.1s ease;
+            text-shadow: none; 
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0px 8px rgba(0, 255, 255, 0.9); 
+            animation: glitch-anim-1 0.8s infinite alternate-reverse; 
+            clip-path: inset(60% 0 0 0); 
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: 1px 0px 8px rgba(255, 0, 255, 0.9); 
+            animation: glitch-anim-2 0.8s infinite alternate-reverse; 
+            clip-path: inset(0 0 60% 0); 
+        }
+
+        .glitch-text:not(:hover)::before,
+        .glitch-text:not(:hover)::after {
+            animation: none; 
+            clip-path: none; 
+            text-shadow: inherit; 
+            left: 0;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); opacity: 0.8;} 
+            40% { transform: translate(-3px, -3px); opacity: 0.8;}
+            60% { transform: translate(3px, 3px); opacity: 0.8;}
+            80% { transform: translate(3px, -3px); opacity: 0.8;}
+            100% { transform: translate(0); opacity: 1;}
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { transform: translate(0); }
+            25% { transform: translate(3px, -3px); opacity: 0.8;}
+            50% { transform: translate(-3px, -3px); opacity: 0.8;}
+            75% { transform: translate(-3px, 3px); opacity: 0.8;}
+            100% { transform: translate(0); }
+        }
+
+
+        /* Custom scrollbar for modals/overflow areas */
+        ::-webkit-scrollbar {
+            width: 10px; 
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d1a; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0f3460; 
+            border-radius: 10px;
+            border: 1px solid #00FFFF; 
+            box-shadow: 0 0 5px #00FFFF; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #533483; 
+            box-shadow: 0 0 10px #FF00FF; 
+        }
+
+        /* Specific styling for SVG icons */
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+            width: 28px; 
+            height: 28px;
+        }
+        .icon-small {
+            width: 22px; 
+            height: 22px;
+        }
+
+        /* --- Loading Screen Animations --- */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #00000A; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1.5s ease-out; 
+            font-family: 'Inter', sans-serif;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-animation-container {
+            position: relative;
+            width: 300px; 
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: portal-scale-in 2s forwards ease-out;
+            animation-delay: 0.5s;
+        }
+        @keyframes portal-scale-in {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+
+        .loading-circle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            opacity: 0;
+            animation: circleExpandFade 2s forwards ease-out;
+            box-shadow: 0 0 0px currentColor;
+            border: 1px solid transparent; 
+        }
+        .loading-circle:nth-child(1) { background: rgba(0,255,255,0.2); animation-delay: 0s; border-color: rgba(0,255,255,0.5); }
+        .loading-circle:nth-child(2) { background: rgba(138,43,226,0.2); animation-delay: 0.3s; border-color: rgba(138,43,226,0.5); }
+        .loading-circle:nth-child(3) { background: rgba(255,0,255,0.2); animation-delay: 0.6s; border-color: rgba(255,0,255,0.5); }
+
+        @keyframes circleExpandFade {
+            0% { width: 0; height: 0; opacity: 1; transform: scale(0); box-shadow: 0 0 0px currentColor; }
+            50% { width: 180px; height: 180px; opacity: 0.8; transform: scale(1); box-shadow: 0 0 50px currentColor; }
+            100% { width: 300px; height: 300px; opacity: 0; transform: scale(1.2); box-shadow: 0 0 100px currentColor; }
+        }
+
+        .loading-text {
+            color: #E0BBE4; /* Base color for loading text */
+            font-size: 2.2rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 2.5s; /* Appear after circles start */
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #FF00FF, 0 0 20px #00F0FF;
+            text-align: center;
+            padding: 0 20px;
+        }
+        /* Removed loading-subtext and loading-status-message styles as elements are removed from HTML */
+
+
+        /* Ensure main content is hidden until loaded */
+        body:not(.loaded) #main-content {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease-out; 
+        }
+        body.loaded #main-content {
+            opacity: 1;
+            pointer-events: auto;
+            animation: fadeIn 1.5s ease-out forwards; 
+        }
+
+        /* Universal Glow for Sections/Cards */
+        .section-glow-border {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 0 0 30px rgba(138, 43, 226, 0.3);
+            border: 1px solid #00FFFF; 
+            position: relative;
+            overflow: hidden; 
+            transition: all 0.3s ease-in-out;
+        }
+        .section-glow-border:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(138, 43, 226, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .section-glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px; 
+            border-radius: inherit;
+            background: linear-gradient(45deg, #00FFFF, #8A2BE2, #FF00FF, #00FFFF);
+            background-size: 400% 400%;
+            animation: border-glow-anim 10s linear infinite;
+            filter: blur(15px); 
+            z-index: -1;
+            opacity: 0.3; 
+        }
+
+        @keyframes border-glow-anim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Scroll Reveal Animations (Refined) --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(80px); 
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            visibility: hidden; 
+        }
+        .reveal-on-scroll.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible; 
+        }
+        /* Staggered reveal for children within revealed sections */
+        .reveal-on-scroll.is-revealed > *:not(h2) { /* Exclude h2 as it has its own glitch effect */
+            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            opacity: 0; /* Initially hide children for staggering */
+            visibility: hidden; /* Hide children until their stagger starts */
+        }
+        .reveal-on-scroll.is-revealed > *:not(h2):nth-child(1) { animation-delay: 0.2s; visibility: visible; }
+        .reveal-on-scroll.is-revealed > *:not(h2):nth-child(2) { animation-delay: 0.4s; visibility: visible; }
+        .reveal-on-scroll.is-revealed > *:not(h2):nth-child(3) { animation-delay: 0.6s; visibility: visible; }
+        .reveal-on-scroll.is-revealed > *:not(h2):nth-child(4) { animation-delay: 0.8s; visibility: visible; }
+        .reveal-on-scroll.is-revealed > *:not(h2):nth-child(5) { animation-delay: 1.0s; visibility: visible; }
+        .reveal-on-scroll.is-revealed > *:not(h2):nth-child(6) { animation-delay: 1.2s; visibility: visible; }
+
+
+        /* Quantum Module Specific Styling */
+        .quantum-module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px; 
+            justify-items: center;
+            align-items: stretch;
+            padding: 20px;
+        }
+
+        .quantum-module-card {
+            background-color: #0F0F2A; 
+            border-radius: 15px; 
+            border: 1px solid #3A0066; 
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2), 0 0 20px rgba(0, 255, 255, 0.2);
+            padding: 30px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .quantum-module-card::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #00FFFF, #8A2BE2, #FF00FF, #00FFFF);
+            background-size: 400% 400%;
+            filter: blur(10px);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease, filter 0.5s ease;
+        }
+
+        .quantum-module-card:hover::before {
+            opacity: 0.4; 
+            filter: blur(20px);
+            animation: border-glow-anim 10s linear infinite; 
+        }
+        .quantum-module-card:hover {
+            transform: scale(1.03) translateY(-5px); 
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.6), 0 0 50px rgba(0, 255, 255, 0.6); 
+            border-color: #00FFFF;
+            z-index: 10;
+        }
+        .quantum-module-card > * {
+            position: relative; 
+            z-index: 1;
+        }
+
+
+        .quantum-module-card img {
+            width: 120px; 
+            height: 120px;
+            object-fit: contain; 
+            border-radius: 10px;
+            border: 2px solid #5A0099;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        .quantum-module-card:hover img {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 25px rgba(138, 43, 226, 0.7);
+        }
+
+        .quantum-module-card h3 {
+            font-size: 1.8rem; 
+            color: #00F0FF;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .quantum-module-card .description {
+            font-size: 0.95rem;
+            color: #A0A0A0;
+            margin-bottom: 15px;
+            min-height: 60px; 
+        }
+        .quantum-module-card .features-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #D0D0FF;
+            opacity: 0.9;
+        }
+        .quantum-module-card .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .quantum-module-card .features-list .icon-small {
+            width: 18px;
+            height: 18px;
+            color: #00FF00;
+            margin-right: 8px;
+        }
+        .quantum-module-card .price {
+            font-size: 2.2rem; 
+            font-weight: bold;
+            color: #FF00FF;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        /* Neon text colors */
+        .text-neon-cyan { color: #00F0FF; text-shadow: 0 0 8px rgba(0, 255, 255, 0.5); }
+        .text-neon-purple { color: #8A2BE2; text-shadow: 0 0 8px rgba(138, 43, 226, 0.5); }
+        .text-neon-magenta { color: #FF00FF; text-shadow: 0 0 8px rgba(255, 0, 255, 0.5); }
+        .text-neon-green { color: #00FF00; text-shadow: 0 0 8px rgba(0, 255, 0, 0.5); }
+        .text-light-blue { color: #ADD8E6; }
+        .text-muted-gray { color: #A0A0A0; }
+
+        /* Button glow on hover/active */
+        .btn-futuristic {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, #8A2BE2, #FF00FF); 
+            border: 1px solid #FF00FF;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            color: white !important; 
+        }
+
+        .btn-futuristic:hover {
+            background: linear-gradient(90deg, #FF00FF, #00FFFF); 
+            border-color: #00FFFF;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+            transform: translateY(-3px);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-futuristic:active {
+            transform: translateY(0);
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn-futuristic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3); 
+            transition: all 0.5s ease;
+            transform: skewX(-20deg);
+        }
+
+        .btn-futuristic:hover::before {
+            left: 100%;
+        }
+
+        /* Cart modal specific styling */
+        #cart-modal .bg-white {
+            background-color: #0F0F2A; 
+            border: 1px solid #5A0099; 
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+        }
+        #cart-modal .border-b {
+            border-color: #3A0066; 
+        }
+        #cart-modal .text-gray-800 {
+            color: #00F0FF; 
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        #cart-modal .text-gray-600 {
+            color: #C0C0FF; 
+        }
+
+        #cart-modal .update-quantity-minus,
+        #cart-modal .update-quantity-plus {
+            background-color: #330066;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        #cart-modal .update-quantity-minus:hover,
+        #cart-modal .update-quantity-plus:hover {
+            background-color: #5A0099;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+        }
+        #cart-modal .remove-item-button {
+            color: #FF00FF; 
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+        }
+        #cart-modal .remove-item-button:hover {
+            color: #E000E0;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+        #cart-modal #cart-total {
+             color: #00FFFF; 
+             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        #checkout-button {
+            background: linear-gradient(90deg, #00FF00, #00BFFF); 
+            border: 1px solid #00BFFF;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        #checkout-button:hover {
+            background: linear-gradient(90deg, #00BFFF, #8A2BE2);
+            border-color: #8A2BE2;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+        }
+        #checkout-confirmation {
+            color: #00FF00; 
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+        }
+        #cart-modal .text-gray-500 {
+            color: #B0B0FF; 
+        }
+
+        /* --- Holographic Product Modal --- */
+        #product-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker, more opaque background */
+            backdrop-filter: blur(10px); /* Stronger blur */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 60; /* Higher than cart, lower than loading */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        #product-detail-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #product-detail-content {
+            background-color: #0F0F2A; /* Dark module background */
+            border-radius: 20px; /* More rounded */
+            border: 2px solid #00FFFF; /* Bright neon border */
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.6), /* Cyan glow */
+                0 0 60px rgba(138, 43, 226, 0.4); /* Purple glow */
+            width: 90%;
+            max-width: 800px; /* Larger modal for details */
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            transform: scale(0.8) translateY(50px);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            position: relative;
+        }
+
+        #product-detail-modal.active #product-detail-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* Holographic scanline effect inside modal */
+        #product-detail-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0, 255, 255, 0.1) 0px,
+                rgba(138, 43, 226, 0.1) 1px,
+                rgba(138, 43, 226, 0.1) 2px,
+                rgba(0, 255, 255, 0.1) 3px
+            );
+            animation: scanline-anim 5s infinite linear;
+            pointer-events: none;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        @keyframes scanline-anim {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        #product-detail-content .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3A0066;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        #product-detail-content .detail-header h3 {
+            font-size: 2.5rem;
+            color: #00FFFF;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+        #product-detail-content .detail-header button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        #product-detail-content .detail-header button:hover {
+            background-color: #330066;
+        }
+        #product-detail-content .detail-header svg {
+            color: #FF00FF; 
+            width: 35px;
+            height: 35px;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.7);
+        }
+
+        #product-detail-content .detail-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        #product-detail-content .detail-image {
+            flex: 1 1 300px;
+            text-align: center;
+        }
+        #product-detail-content .detail-image img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 15px;
+            border: 2px solid #00FFFF;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 30px rgba(138, 43, 226, 0.5);
+            transition: all 0.3s ease;
+        }
+        #product-detail-content .detail-info {
+            flex: 2 1 400px;
+            color: #D0D0FF;
+            text-align: left;
+        }
+        #product-detail-content .detail-info p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        #product-detail-content .detail-info ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        #product-detail-content .detail-info ul li {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: #9FE2BF; 
+        }
+        #product-detail-content .detail-info ul li svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color: #00FF00;
+        }
+
+        #product-detail-content .detail-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            border-top: 1px solid #3A0066;
+            padding-top: 20px;
+        }
+        #product-detail-content .detail-actions .price {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #FF00FF;
+            text-shadow: 0 0 12px rgba(255, 0, 255, 0.9);
+        }
+        #product-detail-content .detail-actions button {
+            padding: 15px 30px; 
+            font-size: 1.3rem;
+        }
+
+        /* Responsive adjustments for Holographic Product Modal */
+        @media (max-width: 768px) {
+            #product-detail-content {
+                padding: 20px;
+                max-width: 95%;
+            }
+            #product-detail-content .detail-header h3 {
+                font-size: 2rem;
+            }
+            #product-detail-content .detail-body {
+                flex-direction: column;
+                gap: 20px;
+            }
+            #product-detail-content .detail-image img {
+                width: 200px;
+                height: 200px;
+            }
+            #product-detail-content .detail-info p {
+                text-align: center;
+            }
+            #product-detail-content .detail-info ul {
+                text-align: center;
+            }
+            #product-detail-content .detail-info ul li {
+                justify-content: center;
+            }
+            #product-detail-content .detail-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            #product-detail-content .detail-actions button {
+                width: 100%;
+                font-size: 1.1rem;
+            }
+            #product-detail-content .detail-actions .price {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 500px) {
+             #product-detail-content .detail-header h3 {
+                font-size: 1.5rem;
+            }
+            #product-detail-content .detail-header svg {
+                width: 30px;
+                height: 30px;
+            }
+            #product-detail-content .detail-image img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+
+        /* Responsive adjustments for Quantum Modules */
+        @media (max-width: 1024px) {
+            .quantum-module-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+            }
+            .quantum-module-card {
+                padding: 25px;
+            }
+            .quantum-module-card img {
+                width: 100px;
+                height: 100px;
+            }
+            .quantum-module-card h3 {
+                font-size: 1.6rem;
+            }
+            .quantum-module-card .description {
+                font-size: 0.9rem;
+            }
+            .quantum-module-card .price {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quantum-module-grid {
+                grid-template-columns: 1fr; 
+                gap: 25px;
+            }
+            .quantum-module-card {
+                padding: 20px;
+            }
+            .quantum-module-card img {
+                width: 90px;
+                height: 90px;
+            }
+            .quantum-module-card h3 {
+                font-size: 1.4rem;
+            }
+            .quantum-module-card .description {
+                font-size: 0.85rem;
+            }
+            .quantum-module-card .price {
+                font-size: 1.8rem;
+            }
+            .loading-text {
+                font-size: 1.8rem;
+            }
+            .loading-subtext {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .quantum-module-card {
+                width: 100%; 
+            }
+            .loading-text {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            .loading-subtext {
+                font-size: 0.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-animation-container">
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+        </div>
+        <!-- Simplified loading text -->
+        <p id="loading-main-text" class="loading-text">Welcome to OPEN WHEN YOU NEED</p>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div id="main-content" class="min-h-screen opacity-0 pointer-events-none">
+        <!-- Header Section -->
+        <header class="relative w-full py-8 text-white text-center shadow-lg rounded-b-3xl overflow-hidden bg-gradient-to-br from-[#1A0033] to-[#0D0022]">
+            <canvas id="three-bg" class="absolute inset-0 z-0 opacity-30"></canvas>
+            <div class="relative z-10 p-4">
+                <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 text-neon-green">Aymane Fakihi</h1>
+                <p class="text-xl md:text-2xl font-light opacity-90 text-light-blue">2nd Year Engineering Student & Creator</p>
+            </div>
+            <button id="cart-button" class="absolute top-6 right-6 p-3 bg-[#331A4D] backdrop-filter backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 hover:bg-[#5A2D80] focus:outline-none focus:ring-2 focus:ring-neon-green btn-futuristic">
+                <!-- Shopping Cart Icon (Lucide SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-neon-green"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="container mx-auto p-4 sm:p-6 lg:p-8 space-y-16">
+
+            <!-- About Me Section -->
+            <section id="about" class="mb-16 p-6 md:p-10 bg-[#1A1A3A] rounded-xl shadow-lg section-glow-border reveal-on-scroll">
+                <h2 class="text-4xl font-semibold text-center text-neon-green mb-8 glitch-text" data-text="About Me">About Me</h2>
+                <p class="text-lg text-light-blue text-center max-w-2xl mx-auto">
+                    I'm Aymane Fakihi, a passionate 2nd year engineering student from Morocco. I thrive on problem-solving, exploring new technologies, and bringing creative ideas to life. This "OPEN WHEN YOU" project is a testament to that passion, merging heartfelt connection with cutting-edge design.
+                </p>
+            </section>
+
+            <!-- Project Concept Section -->
+            <section id="project-concept" class="mb-16 p-6 md:p-10 bg-[#1A1A3A] rounded-xl shadow-lg section-glow-border reveal-on-scroll">
+                <h2 class="text-4xl font-semibold text-center text-neon-green mb-8 glitch-text" data-text='The "OPEN WHEN YOU" Concept'>The "OPEN WHEN YOU" Concept</h2>
+                <div class="text-center max-w-3xl mx-auto space-y-4">
+                    <p class="text-lg text-light-blue">
+                        Imagine giving a gift that keeps on giving – a collection of heartfelt messages designed for specific moments in life. Whether it's to cheer someone up when they're feeling down, celebrate a special occasion, or simply remind them you care, "OPEN WHEN YOU" boxes are crafted to deliver emotional support and connection exactly when it's needed most.
+                    </p>
+                    <p class="text-lg text-light-blue">
+                        Each box is a unique experience, a thoughtful gesture that creates lasting memories. Explore our customizable packs below to find the perfect way to express your feelings.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Product Packs Section: Quantum Modules Display -->
+            <section id="product-packs" class="mb-16 p-6 md:p-10 bg-[#1A1A3A] rounded-xl shadow-lg section-glow-border reveal-on-scroll">
+                <h2 class="text-4xl font-semibold text-center text-neon-green mb-8 glitch-text" data-text="Quantum Product Array">Quantum Product Array</h2>
+                <div class="quantum-module-grid">
+                    <!-- Product Pack 1: The Bookworm Pack -->
+                    <div class="quantum-module-card" data-product-id="bookworm-pack">
+                        <img src="https://placehold.co/400x400/3A0066/9FE2BF?text=Bookworm+Pack" alt="The Bookworm Pack" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0F0F2A/9FE2BF?text=Image+Missing';" />
+                        <h3 class="text-neon-cyan">The Bookworm Pack</h3>
+                        <p class="description text-muted-gray">Personalize your own heartfelt journal with prompts.</p>
+                        <ul class="features-list">
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>High-quality Journal</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Writing Prompts</li>
+                        </ul>
+                        <p class="price text-neon-magenta">$19.99</p>
+                    </div>
+
+                    <!-- Product Pack 2: The Thoughtful Collection -->
+                    <div class="quantum-module-card" data-product-id="thoughtful-collection">
+                        <img src="https://placehold.co/400x400/3A0066/9FE2BF?text=Cards+Pack" alt="The Thoughtful Collection" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0F0F2A/9FE2BF?text=Image+Missing';" />
+                        <h3 class="text-neon-cyan">The Thoughtful Collection</h3>
+                        <p class="description text-muted-gray">A set of pre-designed cards, ready to share.</p>
+                        <ul class="features-list">
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>10-15 Pre-written Cards</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>5 Blank Cards</li>
+                        </ul>
+                        <p class="price text-neon-magenta">$29.99</p>
+                    </div>
+
+                    <!-- Product Pack 3: The Complete Experience -->
+                    <div class="quantum-module-card" data-product-id="complete-experience">
+                        <img src="https://placehold.co/400x400/3A0066/9FE2BF?text=Cards+%26+Stickers" alt="The Complete Experience" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0F0F2A/9FE2BF?text=Image+Missing';" />
+                        <h3 class="text-neon-cyan">The Complete Experience</h3>
+                        <p class="description text-muted-gray">Full card set with exclusive sticker sheet.</p>
+                        <ul class="features-list">
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Thoughtful Collection</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>Exclusive Stickers</li>
+                        </ul>
+                        <p class="price text-neon-magenta">$39.99</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="mb-16 p-6 md:p-10 bg-[#1A1A3A] rounded-xl shadow-lg section-glow-border reveal-on-scroll">
+                <h2 class="text-4xl font-semibold text-center text-neon-green mb-8 glitch-text" data-text="My Skills & Interests">My Skills & Interests</h2>
+                <div class="text-center">
+                    <ul class="list-disc list-inside inline-block text-left text-light-blue space-y-2">
+                        <li>HTML & CSS (with Tailwind CSS)</li>
+                        <li>JavaScript (Vanilla JS)</li>
+                        <li>Web Development (Front-end & UI/UX Design)</li>
+                        <li>Problem Solving & Algorithmic Thinking</li>
+                        <li>Software Engineering Principles</li>
+                        <li>Creative Project Management</li>
+                        <li>Advanced 3D Graphics (Three.js)</li>
+                        <li>Interactive Experience Design</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="mb-16 p-6 md:p-10 bg-[#1A1A3A] rounded-xl shadow-lg section-glow-border reveal-on-scroll">
+                <h2 class="text-4xl font-semibold text-center text-neon-green mb-8 glitch-text" data-text="Access Terminal">Access Terminal</h2>
+                <div class="text-center max-w-2xl mx-auto space-y-4">
+                    <p class="text-lg text-light-blue">
+                        Transmit data to Aymane Fakihi. Quantum channels open for new ideas, collaborative protocols, or interdimensional queries.
+                    </p>
+                    <ul class="list-none p-0 flex justify-center space-x-6 text-xl">
+                        <li>
+                            <a href="https://linkedin.com/in/yourlinkedinprofile" target="_blank" rel="noopener noreferrer" class="text-neon-cyan hover:text-neon-green transition-colors duration-200 text-shadow-neon">
+                                LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/yourgithubusername" target="_blank" rel="noopener noreferrer" class="text-neon-purple hover:text-neon-magenta transition-colors duration-200 text-shadow-neon">
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:your.email@example.com" class="text-neon-magenta hover:text-neon-cyan transition-colors duration-200 text-shadow-neon">
+                                Initiate Comms
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="w-full py-8 text-white text-center bg-[#0D0D1A] text-sm rounded-t-3xl shadow-inner border-t border-[#3A0066]">
+            <p class="text-muted-gray">&copy; 2025 Aymane Fakihi // Quantum Industries. All rights reserved.</p>
+        </footer>
+    </div> <!-- End of #main-content -->
+
+    <!-- Cart Modal HTML Structure -->
+    <div id="cart-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-md p-4 hidden animate-fadeIn">
+        <div class="bg-[#0F0F2A] rounded-xl shadow-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto transform scale-95 animate-scaleIn border border-[#5A0099]">
+            <div class="flex justify-between items-center border-b border-[#3A0066] pb-3 mb-4">
+                <h3 class="text-2xl font-semibold text-neon-cyan">Quantum Cart Diagnostics</h3>
+                <button id="close-cart-modal" class="p-2 rounded-full bg-[#1A0033] hover:bg-[#330066] transition-colors focus:outline-none focus:ring-2 focus:ring-neon-green btn-futuristic" aria-label="Close">
+                    <!-- X icon (Lucide SVG) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-neon-green"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+            <div id="cart-items-container" class="space-y-4 max-h-80 overflow-y-auto pr-2">
+                <!-- Cart items will be injected here by JavaScript -->
+                <p class="text-center text-muted-gray">No anomalies detected in cart matrix.</p>
+            </div>
+            <div id="cart-summary" class="flex justify-between items-center mt-6 pt-4 border-t border-[#3A0066]">
+                <p class="text-xl font-bold text-neon-green">Total Data Transfer: <span id="cart-total">$0.00</span></p>
+                <button id="checkout-button" class="py-3 px-6 rounded-lg font-semibold btn-futuristic">
+                    <!-- Wallet icon (Lucide SVG) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small mr-2 text-white"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M12 17H5a2 2 0 0 0 0 4h14v-4"/><path d="M18 12a2 2 0 0 0 2 2h2v-2h-2a2 2 0 0 0-2-2z"/></svg>Initiate Transaction
+                </button>
+            </div>
+            <div id="checkout-confirmation" class="mt-4 text-center text-neon-green font-bold text-lg hidden animate-fadeInUp">
+                Quantum Transfer Complete! (Simulated)
+            </div>
+            <p class="mt-4 text-sm text-muted-gray text-center">
+                *This is a simulated transaction. Cart data is stored locally in your browser.
+            </p>
+        </div>
+    </div>
+
+    <!-- Holographic Product Detail Modal HTML Structure -->
+    <div id="product-detail-modal" class="fixed inset-0 z-60 hidden">
+        <div id="product-detail-content" class="bg-[#0F0F2A] rounded-xl shadow-2xl border border-[#00FFFF]">
+            <div class="detail-header">
+                <h3 id="detail-product-name" class="text-neon-cyan"></h3>
+                <button id="close-detail-modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-image">
+                    <img id="detail-product-image" src="" alt="Product Image" />
+                </div>
+                <div class="detail-info">
+                    <p id="detail-product-description" class="text-light-blue"></p>
+                    <ul id="detail-product-features" class="features-list"></ul>
+                </div>
+            </div>
+            <div class="detail-actions">
+                <p class="price" id="detail-product-price"></p>
+                <button id="add-to-cart-from-detail" class="py-3 px-6 rounded-lg font-semibold btn-futuristic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small mr-2 text-white"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Acquire Pack
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Three.js background, Cart, and Holographic Modals -->
+    <script>
+        // --- Sound Effects (Tone.js) ---
+        // Initialize Tone.js with some basic synths for futuristic sounds
+        const synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "square" },
+            envelope: { attack: 0.01, decay: 0.1, sustain: 0.2, release: 0.5 },
+            volume: -15 
+        }).toDestination();
+
+        const clickSound = new Tone.MembraneSynth({
+            "pitchDecay": 0.005, "octaves": 2, "oscillator": { "type": "sine" },
+            "envelope": { "attack": 0.001, "decay": 0.4, "sustain": 0.01, "release": 0.2, "releaseCurve": "linear" },
+            "volume": -10
+        }).toDestination();
+
+        const humSound = new Tone.Synth({
+            oscillator: { type: "sawtooth" },
+            envelope: { attack: 0.5, decay: 0.1, sustain: 0.9, release: 1 },
+            volume: -25 
+        }).toDestination();
+
+        const modalOpenSound = new Tone.PolySynth(Tone.FMSynth, {
+            harmonicity: 3.0, oscillator: { type: "sine" },
+            envelope: { attack: 0.02, decay: 0.1, sustain: 0.3, release: 0.5 },
+            volume: -10
+        }).toDestination();
+
+        // New sounds for loading sequence
+        const loadPhase1Sound = new Tone.PolySynth(Tone.AMSynth, {
+            oscillator: { type: "sine" },
+            envelope: { attack: 0.05, decay: 0.1, sustain: 0.4, release: 0.5 },
+            volume: -15
+        }).toDestination();
+
+        const loadPhase2Sound = new Tone.PolySynth(Tone.DuoSynth, {
+            voice0: { oscillator: { type: "sawtooth" } },
+            voice1: { oscillator: { type: "sine" } },
+            vibratoAmount: 0.5, vibratoRate: 5,
+            volume: -15
+        }).toDestination();
+
+        const loadPhase3Sound = new Tone.NoiseSynth({
+            noise: { type: "pink" },
+            envelope: { attack: 0.01, decay: 0.5, sustain: 0.1, release: 1 },
+            volume: -10
+        }).toDestination();
+
+
+        function playClick() { if (Tone.context.state !== 'running') { Tone.start(); } clickSound.triggerAttackRelease("C4", "8n"); }
+        function playZap() { if (Tone.context.state !== 'running') { Tone.start(); } synth.triggerAttackRelease(["C3", "G3", "C4"], "16n"); }
+        function playSuccessChime() { if (Tone.context.state !== 'running') { Tone.start(); } synth.triggerAttackRelease(["E5", "G#5", "C6"], "8n"); }
+        function playModalOpen() { if (Tone.context.state !== 'running') { Tone.start(); } modalOpenSound.triggerAttackRelease("F#4", "0.2"); }
+        function playLowHum() { if (Tone.context.state !== 'running') { Tone.start(); } humSound.triggerAttackRelease("C1", "4n"); }
+        function playLoadPhase1() { if (Tone.context.state !== 'running') { Tone.start(); } loadPhase1Sound.triggerAttackRelease(["C3", "E3", "G3"], "0.3"); }
+        function playLoadPhase2() { if (Tone.context.state !== 'running') { Tone.start(); } loadPhase2Sound.triggerAttackRelease("A#2", "0.5"); }
+        function playLoadPhase3() { if (Tone.context.state !== 'running') { Tone.start(); } loadPhase3Sound.triggerAttackRelease("2s"); }
+
+
+        // --- Loading Screen & Main Content Reveal Logic ---
+        // Removed loadingStatusElement, loadingSubText elements from HTML and their corresponding JS references
+        // Simplified loadingPhases array for a single static message
+        const loadingMainText = document.getElementById('loading-main-text');
+
+        function updateLoadingStatus(phaseIndex) {
+            // Only update the main text once
+            if (phaseIndex === 0) {
+                loadingMainText.textContent = "Welcome to OPEN WHEN YOU NEED";
+                // Optionally play a single sound here or just rely on the hideLoadingScreen sound
+                playLoadPhase3(); // A more impactful 'welcome' sound
+            }
+            // No more recursive calls to updateLoadingStatus for phases
+        }
+
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            if (loadingScreen && mainContent) {
+                loadingScreen.classList.add('hidden'); 
+                document.body.classList.add('loaded'); 
+                playZap(); 
+                handleScrollReveal(); 
+            }
+        }
+
+        // --- Three.js Background Logic ---
+        let threeScene, threeCamera, threeRenderer, particlesMesh;
+        function initializeThreeJS() {
+            const canvas = document.getElementById('three-bg');
+            if (!canvas) { console.error("Three.js canvas not found."); return; }
+
+            threeScene = new THREE.Scene();
+            threeCamera = new THREE.PerspectiveCamera(75, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
+            threeRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            threeRenderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+
+            threeCamera.position.z = 2;
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 3000; 
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorArray = new Float32Array(particlesCount * 3); /* Typo Fixed: Changed Float332Array to Float32Array */
+
+            const colors = [ new THREE.Color(0x00FFFF), new THREE.Color(0x8A2BE2), new THREE.Color(0xFF00FF) ];
+
+            for (let i = 0; i < particlesCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 20; 
+                posArray[i + 1] = (Math.random() - 0.5) * 20;
+                posArray[i + 2] = (Math.random() - 0.5) * 20;
+
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                colorArray[i] = color.r; colorArray[i + 1] = color.g; colorArray[i + 2] = color.b;
+            }
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02, 
+                vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, sizeAttenuation: true
+            });
+            particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            threeScene.add(particlesMesh);
+
+            let mouseX = 0, mouseY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX) / 1000;
+                mouseY = (event.clientY - windowHalfY) / 1000;
+            });
+
+            threeRenderer.setAnimationLoop(() => {
+                threeCamera.position.x += (mouseX - threeCamera.position.x) * 0.05;
+                threeCamera.position.y += (-mouseY - threeCamera.position.y) * 0.05;
+                threeCamera.lookAt(threeScene.position); 
+                threeRenderer.render(threeScene, threeCamera);
+            });
+
+            const handleResize = () => {
+                const parent = canvas.parentNode;
+                canvas.width = parent.offsetWidth; canvas.height = parent.offsetHeight;
+                threeCamera.aspect = parent.offsetWidth / parent.offsetHeight;
+                threeCamera.updateProjectionMatrix();
+                threeRenderer.setSize(parent.offsetWidth, parent.offsetHeight);
+            };
+
+            handleResize();
+            window.addEventListener('resize', handleResize);
+        }
+
+
+        // --- Shopping Cart Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartButton = document.getElementById('cart-button');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartModalButton = document.getElementById('close-cart-modal');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartTotalSpan = document.getElementById('cart-total');
+            const checkoutButton = document.getElementById('checkout-button');
+            const checkoutConfirmation = document.getElementById('checkout-confirmation');
+            const quantumModuleCards = document.querySelectorAll('.quantum-module-card'); 
+
+            // Holographic Product Detail Modal Elements
+            const productDetailModal = document.getElementById('product-detail-modal');
+            const closeDetailModalButton = document.getElementById('close-detail-modal');
+            const detailProductName = document.getElementById('detail-product-name');
+            const detailProductImage = document.getElementById('detail-product-image');
+            const detailProductDescription = document.getElementById('detail-product-description');
+            const detailProductFeatures = document.getElementById('detail-product-features');
+            const detailProductPrice = document.getElementById('detail-product-price');
+            const addToCartFromDetailButton = document.getElementById('add-to-cart-from-detail');
+
+            // Define product data (centralized for both product cards and detail modal)
+            const productsData = {
+                'bookworm-pack': {
+                    name: 'The Bookworm Pack',
+                    description: 'A beautifully designed "Open When You" journal/book with prompts for personalization. Perfect for those who love to write and create a truly unique gift.',
+                    features: ['High-quality Journal', 'Writing Prompts', 'Elegant Design', 'Lasting Personal Gift', 'Quantum-bound Paper'],
+                    price: 19.99,
+                    imageUrl: 'https://placehold.co/400x400/3A0066/9FE2BF?text=Bookworm+Pack'
+                },
+                'thoughtful-collection': {
+                    name: 'The Thoughtful Collection',
+                    description: 'A set of pre-designed "Open When You" cards for various occasions, along with some blank cards for your personal touch. Ready to use and easy to share!',
+                    features: ['10-15 Pre-written Cards', '5 Blank Cards', 'Premium Card Stock', 'Convenient & Heartwarming', 'Sentient Ink Technology'],
+                    price: 29.99,
+                    imageUrl: 'https://placehold.co/400x400/3A0066/9FE2BF?text=Cards+Pack'
+                },
+                'complete-experience': {
+                    name: 'The Complete Experience',
+                    description: 'Our most comprehensive pack! Includes a full set of "Open When You" cards and an exclusive sticker sheet to decorate your letters and gifts.',
+                    features: ['All Thoughtful Collection Features', 'Exclusive Sticker Sheet', 'Decorative Embellishments', 'Perfect for Creative Gifting', 'Temporal-Resonance Stickers'],
+                    price: 39.99,
+                    imageUrl: 'https://placehold.co/400x400/3A0066/9FE2BF?text=Cards+%26+Stickers'
+                }
+            };
+
+            let cart = JSON.parse(localStorage.getItem('shoppingCart')) || []; 
+
+            function saveCart() { localStorage.setItem('shoppingCart', JSON.stringify(cart)); }
+
+            function updateCartDisplay() {
+                cartItemsContainer.innerHTML = ''; 
+                let total = 0;
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="text-center text-muted-gray">No anomalies detected in cart matrix.</p>';
+                    checkoutButton.disabled = true;
+                } else {
+                    checkoutButton.disabled = false;
+                    cart.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'flex items-center justify-between border-b border-[#330066] pb-3';
+                        itemElement.innerHTML = `
+                            <div class="flex items-center">
+                                <img src="${item.imageUrl}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md mr-4" onerror="this.onerror=null;this.src='https://placehold.co/100x100/1A1A3A/9FE2BF?text=N/A';" />
+                                <div>
+                                    <p class="font-semibold text-neon-cyan text-lg">${item.name}</p>
+                                    <p class="text-muted-gray text-sm">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="update-quantity-minus p-1 rounded-full bg-[#330066] hover:bg-[#5A0099] btn-futuristic" data-id="${item.id}" aria-label="Decrease quantity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+                                </button>
+                                <span class="font-medium text-light-blue">${item.quantity}</span>
+                                <button class="update-quantity-plus p-1 rounded-full bg-[#330066] hover:bg-[#5A0099] btn-futuristic" data-id="${item.id}" aria-label="Increase quantity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                                </button>
+                                <button class="remove-item-button ml-4 text-neon-magenta hover:text-neon-cyan transition-colors" data-id="${item.id}" aria-label="Remove item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                            </div>
+                        `;
+                        cartItemsContainer.appendChild(itemElement);
+                        total += item.price * item.quantity;
+                    });
+                }
+
+                cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+                saveCart(); 
+            }
+
+            function addProductToCart(productId) {
+                playClick(); 
+                const product = productsData[productId]; 
+
+                const existingItem = cart.find(item => item.id === productId);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ 
+                        id: productId, 
+                        name: product.name, 
+                        price: product.price, 
+                        imageUrl: product.imageUrl, 
+                        quantity: 1 
+                    });
+                }
+                updateCartDisplay();
+                cartModal.classList.remove('hidden'); 
+            }
+
+            // Event Listeners for Product Interaction (Holographic Modal Trigger)
+            quantumModuleCards.forEach(card => {
+                card.addEventListener('click', (event) => {
+                    playModalOpen(); 
+                    const productId = card.dataset.productId;
+                    const product = productsData[productId];
+
+                    detailProductName.textContent = product.name;
+                    detailProductImage.src = product.imageUrl;
+                    detailProductImage.alt = product.name;
+                    detailProductDescription.textContent = product.description;
+                    
+                    detailProductFeatures.innerHTML = '';
+                    product.features.forEach(feature => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-small text-neon-green mr-2 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>${feature}`;
+                        detailProductFeatures.appendChild(li);
+                    });
+                    detailProductPrice.textContent = `$${product.price.toFixed(2)}`;
+                    
+                    addToCartFromDetailButton.dataset.productId = productId;
+
+                    productDetailModal.classList.remove('hidden');
+                    productDetailModal.classList.add('active'); 
+                });
+            });
+
+            // Add to Cart from Detail Modal button
+            addToCartFromDetailButton.addEventListener('click', (event) => {
+                const productId = event.target.dataset.productId;
+                addProductToCart(productId);
+                productDetailModal.classList.add('hidden'); 
+                productDetailModal.classList.remove('active');
+            });
+
+            // Cart modal visibility
+            cartButton.addEventListener('click', () => {
+                playZap(); 
+                cartModal.classList.remove('hidden');
+                updateCartDisplay(); 
+            });
+
+            closeCartModalButton.addEventListener('click', () => {
+                playZap(); 
+                cartModal.classList.add('hidden');
+                checkoutConfirmation.classList.add('hidden'); 
+            });
+
+            // Close cart modal if clicking outside
+            cartModal.addEventListener('click', (event) => {
+                if (event.target === cartModal) {
+                    playZap();
+                    cartModal.classList.add('hidden');
+                    checkoutConfirmation.classList.add('hidden');
+                }
+            });
+
+            // Close product detail modal
+            closeDetailModalButton.addEventListener('click', () => {
+                playZap(); 
+                productDetailModal.classList.add('hidden');
+                productDetailModal.classList.remove('active');
+            });
+
+            // Close product detail modal if clicking outside
+            productDetailModal.addEventListener('click', (event) => {
+                if (event.target === productDetailModal) {
+                    playZap();
+                    productDetailModal.classList.add('hidden');
+                    productDetailModal.classList.remove('active');
+                }
+            });
+
+            // Handle quantity updates and removals within the cart modal (delegated event listener)
+            cartItemsContainer.addEventListener('click', (event) => {
+                const target = event.target.closest('button');
+                if (!target) return;
+
+                const itemId = target.dataset.id;
+                const item = cart.find(i => i.id === itemId);
+
+                if (!item) return;
+
+                if (target.classList.contains('update-quantity-plus')) {
+                    item.quantity++;
+                    playClick();
+                } else if (target.classList.contains('update-quantity-minus')) {
+                    item.quantity--;
+                    playClick();
+                    if (item.quantity <= 0) {
+                        cart = cart.filter(i => i.id !== itemId); 
+                    }
+                } else if (target.classList.contains('remove-item-button')) {
+                    playZap(); 
+                    cart = cart.filter(i => i.id !== itemId);
+                }
+                updateCartDisplay();
+            });
+
+            // Checkout functionality
+            checkoutButton.addEventListener('click', () => {
+                if (cart.length === 0) return; 
+
+                checkoutConfirmation.classList.remove('hidden');
+                checkoutButton.disabled = true; 
+                playZap(); 
+
+                setTimeout(() => {
+                    cart = []; 
+                    updateCartDisplay();
+                    checkoutConfirmation.classList.add('hidden'); 
+                    cartModal.classList.add('hidden'); 
+                    checkoutButton.disabled = false; 
+                    playSuccessChime(); 
+                }, 2000);
+            });
+
+            updateCartDisplay();
+        });
+
+        // --- Global Load Event Listener ---
+        window.addEventListener('load', () => {
+            // Update loading status once for static text
+            updateLoadingStatus(0); 
+
+            // Initialize Three.js after a short delay for better performance
+            setTimeout(() => {
+                initializeThreeJS(); 
+            }, 500); 
+
+            // Hide loading screen after full loading sequence duration (4.5s is still good for animation)
+            setTimeout(() => {
+                hideLoadingScreen();
+            }, 4500); 
+        });
+        
+        // --- Scroll Reveal Animations ---
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = (window.innerHeight || document.documentElement.clientHeight);
+            return (
+                rect.top <= viewportHeight * 0.85 &&
+                rect.bottom >= viewportHeight * 0.15
+            );
+        }
+
+        function handleScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal-on-scroll:not(.is-revealed)'); 
+            revealElements.forEach(element => {
+                if (isInViewport(element)) {
+                    element.classList.add('is-revealed'); 
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                el.classList.add('opacity-0');
+                el.classList.add('translate-y-20'); 
+                el.classList.add('invisible'); 
+            });
+
+            handleScrollReveal(); 
+            window.addEventListener('scroll', handleScrollReveal); 
+            window.addEventListener('resize', handleScrollReveal); 
+        });
+
+    </script>
+</body>
+</html>
