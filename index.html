@@ -15,24 +15,24 @@
         /* Global CSS Variables for Theming */
         :root {
             /* Dark Mode */
-            --bg-primary: #00000A;
-            --bg-secondary: #0D0D1A;
-            --bg-card: #0F0F2A;
+            --bg-primary: #00000A; /* Deepest black */
+            --bg-secondary: #0D0D1A; /* Slightly lighter dark for backgrounds */
+            --bg-card: #0F0F2A; /* Card/modal background */
             --bg-header-gradient-from: #1A0033;
             --bg-header-gradient-to: #0D0022;
-            --text-primary: #E0E0FF; /* Soft white/light blue */
-            --text-secondary: #A0A0A0; /* Muted gray */
-            --text-light-blue: #ADD8E6; /* Light blue */
+            --text-primary: #E0E0FF; /* Soft white/light blue for main text */
+            --text-secondary: #A0A0A0; /* Muted gray for descriptions */
+            --text-light-blue: #ADD8E6; /* Light blue for general purpose */
             --border-color-1: #3A0066; /* Dark purple border */
-            --border-color-2: #00FFFF; /* Bright cyan border */
-            --box-shadow-1: rgba(255, 0, 255, 0.4);
-            --box-shadow-2: rgba(0, 255, 255, 0.4);
+            --border-color-2: #00FFFF; /* Bright cyan border for focus/hover */
+            --box-shadow-1: rgba(255, 0, 255, 0.4); /* Magenta glow */
+            --box-shadow-2: rgba(0, 255, 255, 0.4); /* Cyan glow */
             --neon-green: #00FF00;
             --neon-cyan: #00F0FF;
             --neon-purple: #8A2BE2;
             --neon-magenta: #FF00FF;
 
-            /* Button Gradient (Default) */
+            /* Button Gradient (Default - dark mode) */
             --btn-gradient-from: var(--neon-purple);
             --btn-gradient-to: var(--neon-magenta);
             --btn-border: var(--neon-magenta);
@@ -47,20 +47,20 @@
             --icon-color: var(--neon-green);
         }
 
-        /* Light Mode */
+        /* Light Mode Variables */
         body.light-mode {
             --bg-primary: #FFFFFF;
             --bg-secondary: #F0F2F5;
             --bg-card: #FFFFFF;
             --bg-header-gradient-from: #C0C0D0;
             --bg-header-gradient-to: #E0E0F0;
-            --text-primary: #1A1A3A;
-            --text-secondary: #505060;
-            --text-light-blue: #303040;
-            --border-color-1: #D0D0E0;
-            --border-color-2: #8080FF; /* Lighter blue */
-            --box-shadow-1: rgba(0, 0, 0, 0.1);
-            --box-shadow-2: rgba(0, 0, 0, 0.05);
+            --text-primary: #1A1A3A; /* Dark text */
+            --text-secondary: #505060; /* Muted dark gray */
+            --text-light-blue: #303040; /* Darker blue for general text */
+            --border-color-1: #D0D0E0; /* Light gray border */
+            --border-color-2: #8080FF; /* Lighter blue border */
+            --box-shadow-1: rgba(0, 0, 0, 0.1); /* Subtle dark shadow */
+            --box-shadow-2: rgba(0, 0, 0, 0.05); /* Even subtler dark shadow */
             --neon-green: #008000; /* Darker green for light mode */
             --neon-cyan: #007777; /* Darker cyan */
             --neon-purple: #500080; /* Darker purple */
@@ -75,7 +75,7 @@
             --btn-hover-gradient-to: #8080FF;
             --btn-hover-border: #8080FF;
             --btn-hover-shadow: rgba(128, 128, 255, 0.7);
-            --btn-text: white; /* Still white for contrast */
+            --btn-text: white; 
 
             /* Icons/Features */
             --icon-color: #008000;
@@ -87,7 +87,7 @@
             background-color: var(--bg-primary); 
             position: relative; 
             color: var(--text-primary);
-            transition: background-color 0.8s ease, color 0.8s ease; /* Smooth theme transition */
+            transition: background-color 0.8s ease, color 0.8s ease; 
         }
 
         /* Global Noise/Grain Overlay */
@@ -1013,7 +1013,7 @@
             position: fixed;
             bottom: 20px;
             left: 20px;
-            z-index: 70; 
+            z-index: 101; /* Ensure it's above the cursor trail and canvas */
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -1033,11 +1033,8 @@
         #theme-toggle svg {
             width: 24px;
             height: 24px;
-            color: var(--neon-green); 
+            color: var(--icon-color); /* Use theme-controlled icon color */
             transition: transform 0.3s ease;
-        }
-        body.light-mode #theme-toggle svg {
-            color: var(--neon-green); 
         }
 
 
@@ -1062,7 +1059,7 @@
     <div id="main-content" class="min-h-screen opacity-0 pointer-events-none">
         <!-- Header Section -->
         <header class="relative w-full py-8 text-white text-center shadow-lg rounded-b-3xl overflow-hidden bg-gradient-to-br from-[var(--bg-header-gradient-from)] to-[var(--bg-header-gradient-to)]">
-            <canvas id="three-bg" class="absolute inset-0 z-0 opacity-30"></canvas>
+            <canvas id="three-bg" class="absolute inset-0 z-0 opacity-30 pointer-events-none"></canvas>
             <div class="relative z-10 p-4">
                 <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 text-neon-green">Aymane Fakihi</h1>
                 <p class="text-xl md:text-2xl font-light opacity-90 text-light-blue">2nd Year Engineering Student & Creator</p>
