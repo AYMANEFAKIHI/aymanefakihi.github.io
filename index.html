@@ -136,7 +136,7 @@
         .glitch-text {
             position: relative;
             display: inline-block; 
-            color: var(--neon-green); /* Default color for glitch text */
+            color: var(--neon-green); 
             transition: color 0.3s ease; 
         }
 
@@ -610,7 +610,7 @@
         }
         #cart-modal .remove-item-button:hover {
             color: var(--neon-cyan);
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
         }
         #cart-modal #cart-total {
              color: var(--neon-cyan); 
@@ -998,9 +998,9 @@
             opacity: 0;
             pointer-events: none;
             transform: scale(0);
-            animation: trail-fade-scale 0.5s forwards ease-out; /* Adjusted timing */
+            animation: trail-fade-scale 0.5s forwards ease-out; 
             box-shadow: 0 0 8px var(--neon-cyan), 0 0 15px var(--neon-magenta);
-            z-index: 100; /* Above most content, below loading screen */
+            z-index: 100; 
         }
 
         @keyframes trail-fade-scale {
@@ -1013,7 +1013,7 @@
             position: fixed;
             bottom: 20px;
             left: 20px;
-            z-index: 70; /* Above modals, below loading */
+            z-index: 70; 
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -1033,23 +1033,15 @@
         #theme-toggle svg {
             width: 24px;
             height: 24px;
-            color: var(--neon-green); /* Always green for toggle icon */
+            color: var(--neon-green); 
             transition: transform 0.3s ease;
         }
         body.light-mode #theme-toggle svg {
-            color: var(--neon-green); /* Ensure it stays green in light mode */
+            color: var(--neon-green); 
         }
 
 
     </style>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=TON_ID_DE_MESURE_GA4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-7QLJ9X2SWJ');
-    </script>
 </head>
 <body class="min-h-screen">
 
@@ -1075,7 +1067,7 @@
                 <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 text-neon-green">Aymane Fakihi</h1>
                 <p class="text-xl md:text-2xl font-light opacity-90 text-light-blue">2nd Year Engineering Student & Creator</p>
             </div>
-            <button id="cart-button" class="absolute top-6 right-6 p-3 rounded-full shadow-lg transition-all duration-300 btn-futuristic">
+            <button id="cart-button" class="absolute top-6 right-6 p-3 rounded-full shadow-lg transition-all duration-300 btn-futuristic" style="z-index: 101;">
                 <!-- Shopping Cart Icon (Lucide SVG) -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-[var(--icon-color)]"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             </button>
@@ -1173,7 +1165,7 @@
                     </p>
                     <ul class="list-none p-0 flex justify-center space-x-6 text-xl">
                         <li>
-                            <a href="https://www.linkedin.com/in/aymane-fakihi-9a3435335/" target="_blank" rel="noopener noreferrer" class="text-neon-cyan hover:text-neon-green transition-colors duration-200 text-shadow-neon">
+                            <a href="https://linkedin.com/in/aymane-fakihi-9a3435335/" target="_blank" rel="noopener noreferrer" class="text-neon-cyan hover:text-neon-green transition-colors duration-200 text-shadow-neon">
                                 LinkedIn
                             </a>
                         </li>
@@ -1183,8 +1175,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="faymane12@gmail.com" class="text-neon-magenta hover:text-neon-cyan transition-colors duration-200 text-shadow-neon">
-                                About
+                            <a href="mailto:faymane12@gmail.com" class="text-neon-magenta hover:text-neon-cyan transition-colors duration-200 text-shadow-neon">
+                                Initiate Comms
                             </a>
                         </li>
                     </ul>
