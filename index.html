@@ -10,13 +10,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #092211; /* Requested background */
-            color: #0b8e36; /* Requested text color */
+            background-color: #092211; 
+            color: #0b8e36;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        /* Center AP page content more naturally below fixed header */
         #ap-page { padding-top: 6rem; }
         .page {
             display: none;
@@ -48,11 +47,10 @@
 </head>
 <body>
 
-<!-- Header section, fixed at the top -->
 <header id="main-header" class="w-full bg-[#06170b] text-[#0b8e36] shadow-sm rounded-b-3xl p-6 sm:p-8 lg:p-10 border-b border-green-900 fixed top-0 left-0 z-10">
     <div class="flex items-center justify-center">
         <h1 id="header-title" class="text-3xl sm:text-4xl font-bold flex items-center">
-            <img src="assets/emsi-logo.png" alt="EMSI Logo" class="h-12 w-12 mr-2 sm:mr-4 object-contain"/> Study Hub
+            <img src="assets/emsi-logo.png" alt="EMSI Logo" class="h-12 w-12 mr-2 sm:mr-4 object-contain"/> StudyHub
         </h1>
     </div>
     <p id="header-subtitle" class="text-center text-sm sm:text-base text-green-700 mt-2">
@@ -60,14 +58,11 @@
     </p>
 </header>
 
-<!-- Main content container for all pages -->
 <div class="min-h-screen p-4 sm:p-8 md:p-12 lg:p-16 pb-28 flex flex-col items-center">
 
-    <!-- Home Page -->
     <div id="home-page" class="page active text-center w-full">
         <h2 class="text-3xl font-bold mb-6">Les Filières</h2>
         <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
-            <!-- Filière buttons with "Accéder à" text -->
             <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
                 <i class="icon fas fa-code"></i>
                 <h2 class="text-xl font-bold mt-4">AP</h2>
@@ -106,7 +101,6 @@
             </div>
         </main>
 
-        <!-- Leaderboard (Classement) directly under "Les Filières" -->
         <section id="home-leaderboard" class="w-full max-w-4xl mx-auto mt-10">
             <h3 class="text-2xl font-bold text-center">Leaderboard</h3>
             <div class="mt-4 overflow-x-auto">
@@ -217,7 +211,6 @@
         </div>
     </div>
 
-    <!-- AP Page -->
     <div id="ap-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -246,7 +239,6 @@
         </footer>
     </div>
     
-    <!-- IIR Page -->
     <div id="iir-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -275,7 +267,6 @@
         </footer>
     </div>
 
-    <!-- GI Page -->
     <div id="gi-page" class="page text-center w-full" data-searchable>
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -304,7 +295,6 @@
         </footer>
     </div>
 
-    <!-- 3GI Pages (Semestres S5 et S6) -->
     <div id="3gi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -386,7 +376,6 @@
         </footer>
     </div>
 
-    <!-- 4GI Pages (Semestres S7 et S8) -->
     <div id="4gi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -468,7 +457,6 @@
         </footer>
     </div>
 
-    <!-- 5GI Pages (Semestres S9 et S10) -->
     <div id="5gi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -551,7 +539,6 @@
     </div>
 
 
-    <!-- GC Page -->
     <div id="gc-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -588,7 +575,6 @@
         </footer>
     </div>
 
-    <!-- GESI Page -->
     <div id="gesi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -617,7 +603,6 @@
         </footer>
     </div>
 
-    <!-- GF Page -->
     <div id="gf-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -654,7 +639,6 @@
         </footer>
     </div>
 
-    <!-- 1AP Pages (Semestres S1 et S2) -->
     <div id="1ap-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -797,7 +781,6 @@
         </footer>
     </div>
 
-    <!-- 2AP Pages (Semestres S3 et S4) -->
     <div id="2ap-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -874,7 +857,6 @@
         </footer>
     </div>
 
-    <!-- 2AP S4 Page (Modules) -->
     <div id="2ap-s4-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -930,7 +912,6 @@
         </footer>
     </div>
     
-    <!-- 3IIR Pages (Semestres S5 et S6) -->
     <div id="3iir-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1016,7 +997,6 @@
         </footer>
     </div>
 
-    <!-- 4IIR Pages (Semestres S7 et S8) -->
     <div id="4iir-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1102,7 +1082,6 @@
         </footer>
     </div>
 
-    <!-- 5IIR Pages (Semestres S9 et S10) -->
     <div id="5iir-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1188,7 +1167,6 @@
         </footer>
     </div>
 
-    <!-- 1GC Pages (Semestres S1 et S2) -->
     <div id="1gc-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1274,7 +1252,6 @@
         </footer>
     </div>
     
-    <!-- 2GC Pages (Semestres S3 et S4) -->
     <div id="2gc-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1360,7 +1337,6 @@
         </footer>
     </div>
 
-    <!-- 3GC Pages (Semestres S5 et S6) -->
     <div id="3gc-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1446,7 +1422,6 @@
         </footer>
     </div>
 
-    <!-- 4GC Pages (Semestres S7 et S8) -->
     <div id="4gc-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1532,7 +1507,6 @@
         </footer>
     </div>
     
-    <!-- 5GC Pages (Semestres S9 et S10) -->
     <div id="5gc-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1618,7 +1592,6 @@
         </footer>
     </div>
     
-    <!-- 3GESI Pages (Semestres S5 et S6) -->
     <div id="3gesi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1704,7 +1677,6 @@
         </footer>
     </div>
 
-    <!-- 4GESI Pages (Semestres S7 et S8) -->
     <div id="4gesi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1790,7 +1762,6 @@
         </footer>
     </div>
     
-    <!-- 5GESI Pages (Semestres S9 et S10) -->
     <div id="5gesi-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1876,7 +1847,6 @@
         </footer>
     </div>
     
-    <!-- 1GF Pages (Semestres S1 et S2) -->
     <div id="1gf-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -1962,7 +1932,6 @@
         </footer>
     </div>
     
-    <!-- 2GF Pages (Semestres S3 et S4) -->
     <div id="2gf-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -2048,7 +2017,6 @@
         </footer>
     </div>
     
-    <!-- 3GF Pages (Semestres S5 et S6) -->
     <div id="3gf-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -2134,7 +2102,6 @@
         </footer>
     </div>
 
-    <!-- 4GF Pages (Semestres S7 et S8) -->
     <div id="4gf-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -2220,7 +2187,6 @@
         </footer>
     </div>
     
-    <!-- 5GF Pages (Semestres S9 et S10) -->
     <div id="5gf-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
@@ -2310,7 +2276,6 @@
 
 
 <script>
-    // JavaScript to handle page navigation
     const pages = document.querySelectorAll('.page');
     const mainHeader = document.getElementById('main-header');
     const headerTitle = document.getElementById('header-title');
@@ -2334,7 +2299,6 @@
         });
         targetPage.classList.add('active');
 
-        // Update header content dynamically
         if (pageId === 'home-page') {
             headerTitle.innerHTML = homeHeaderTitle;
             headerSubtitle.innerHTML = homeHeaderSubtitle;
@@ -2343,7 +2307,6 @@
             headerSubtitle.textContent = subtitle;
         }
 
-        // Handle footer buttons visibility and content
         const footers = document.querySelectorAll('footer:not([role="contentinfo"])');
         footers.forEach(footer => footer.style.display = 'none');
         
@@ -2352,10 +2315,8 @@
             const backToHomeBtn = currentPageFooter.querySelector('button:first-child');
             const backToParentBtn = currentPageFooter.querySelector('button:last-child');
             
-            // Back to Home button is always present
             backToHomeBtn.onclick = () => navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études');
             
-            // Back to Parent button is shown if a parent page is defined
             if (parentPageId) {
                 backToParentBtn.style.display = 'flex';
                 backToParentBtn.onclick = () => navigate(parentPageId, parentTitle, `Choisissez votre année d'études.`);
@@ -2367,18 +2328,14 @@
         }
     }
 
-    // Initial call to set the home page active and header
     document.addEventListener('DOMContentLoaded', () => {
         navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études');
     });
 </script>
 
-<!-- Footer principal -->
 <footer role="contentinfo" class="bg-[#0a1a0f] text-[#0b8e36] py-8 px-4 sm:px-6 lg:px-8 mt-auto">
     <div class="max-w-7xl mx-auto">
-        <!-- Contenu principal en deux colonnes -->
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-6">
-            <!-- Colonne gauche - Liens sociaux -->
             <div class="flex flex-col space-y-4">
                 <h3 class="text-lg font-semibold mb-2">Suivez-nous</h3>
                 <div class="flex flex-wrap gap-4">
@@ -2413,7 +2370,6 @@
                 </div>
             </div>
 
-            <!-- Colonne droite - Logo et copyright -->
             <div class="flex flex-col items-center lg:items-end text-center lg:text-right">
                 <div class="flex items-center space-x-3 mb-3">
                     <img src="assets/emsi-logo.png" alt="EMSI Logo" class="h-12 w-12 object-contain"/>
@@ -2442,3 +2398,4 @@
 
 </body>
 </html>
+
