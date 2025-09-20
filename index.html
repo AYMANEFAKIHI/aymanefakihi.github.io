@@ -3,55 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Hub EMSI</title>
+    <title>EMSI StudyHub - You're Trusted Study Partner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: #092211; /* Requested background */
+            color: #0b8e36; /* Requested text color */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .dark body {
-            background-color: #111827;
-            color: #f9fafb;
-        }
+        /* Center AP page content more naturally below fixed header */
+        #ap-page { padding-top: 6rem; }
         .page {
             display: none;
             padding-top: 10rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
         }
         .page.active {
             display: block;
-            opacity: 1;
-            transform: translateY(0);
         }
         .icon {
             font-size: 2.5rem;
             color: #6b7280;
-            transition: color 0.3s ease;
-        }
-        .dark .icon {
-            color: #9ca3af;
         }
         .btn-card {
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .btn-card:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .dark .btn-card {
-            background-color: #374151;
-            color: #f9fafb;
-        }
-        .dark .btn-card:hover {
-            background-color: #4b5563;
         }
         .neon-light {
             transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -60,356 +44,120 @@
             box-shadow: 0 0 15px 5px rgba(34, 197, 94, 0.7);
             transform: scale(1.02);
         }
-        
-        /* Mobile sidebar */
-        .sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        .sidebar.open {
-            transform: translateX(0);
-        }
-        
-        /* Rating stars */
-        .rating-stars {
-            display: flex;
-            gap: 2px;
-        }
-        .star {
-            color: #d1d5db;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        .star.active {
-            color: #fbbf24;
-        }
-        .star:hover {
-            color: #f59e0b;
-        }
-        
-        /* Comments section */
-        .comment {
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-    
-        
-        /* Chatbot */
-        .chatbot {
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            display: none;
-        }
-        .chatbot.open {
-            transform: translateY(0);
-            display: flex;
-        }
-        
-        /* Calendar events */
-        .calendar-event {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        /* Search messages */
-        .search-message {
-            animation: slideDown 0.3s ease;
-        }
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -20px);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, 0);
-            }
-        }
-        
-        /* Screen reader only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        
-        /* Focus styles for accessibility */
-        .focus-visible:focus {
-            outline: 2px solid #10b981;
-            outline-offset: 2px;
-        }
     </style>
 </head>
 <body>
 
 <!-- Header section, fixed at the top -->
-<header id="main-header" class="w-full bg-white shadow-sm rounded-b-2xl p-4 sm:p-6 border-b border-green-200 fixed top-0 left-0 z-10 transition-colors duration-300">
-    <!-- Top row with title and controls -->
-    <div class="flex items-center justify-between mb-3">
-        <div class="flex items-center">
-            <button id="mobile-menu-btn" class="lg:hidden mr-3 p-2 rounded-lg hover:bg-green-50 transition-colors" aria-label="Ouvrir le menu de navigation" aria-expanded="false">
-                <i class="fas fa-bars text-green-600" aria-hidden="true"></i>
-            </button>
-            <h1 id="header-title" class="text-2xl sm:text-3xl font-bold flex items-center text-gray-800">
-                <i class="fas fa-graduation-cap text-green-600 mr-2" aria-hidden="true"></i> Study Hub
+<header id="main-header" class="w-full bg-[#06170b] text-[#0b8e36] shadow-sm rounded-b-3xl p-6 sm:p-8 lg:p-10 border-b border-green-900 fixed top-0 left-0 z-10">
+    <div class="flex items-center justify-center">
+        <h1 id="header-title" class="text-3xl sm:text-4xl font-bold flex items-center">
+            <img src="assets/emsi-logo.png" alt="EMSI Logo" class="h-12 w-12 mr-2 sm:mr-4 object-contain"/> Study Hub
         </h1>
     </div>
-        <div class="flex items-center space-x-2">
-            <!-- Dark mode toggle -->
-            <button id="dark-mode-toggle" class="p-2 rounded-lg hover:bg-green-50 transition-colors" aria-label="Basculer entre le mode sombre et clair">
-                <i id="dark-mode-icon" class="fas fa-moon text-green-600" aria-hidden="true"></i>
-            </button>
-            
-        </div>
-    </div>
-    
-    <!-- Search bar -->
-    <div class="relative max-w-2xl mx-auto">
-        <div class="relative">
-            <input type="text" id="global-search" placeholder="Rechercher par module, année, semestre ou mot-clé..." 
-                   class="w-full px-4 py-2 pl-10 pr-4 bg-green-50 border border-green-200 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 placeholder-green-600 transition-colors text-sm"
-                   aria-label="Barre de recherche globale" aria-describedby="search-help">
-            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-green-600 text-sm" aria-hidden="true"></i>
-            <button id="search-filters-btn" class="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 rounded-lg hover:bg-green-100 transition-colors" aria-label="Afficher les filtres de recherche" aria-expanded="false">
-                <i class="fas fa-filter text-green-600 text-sm" aria-hidden="true"></i>
-            </button>
-        </div>
-        <div id="search-help" class="sr-only">Tapez pour rechercher dans les filières, modules et ressources</div>
-        
-        <!-- Quick action buttons -->
-        <div class="flex justify-center space-x-4 mt-4">
-            <button onclick="navigate('calendar-page', 'Calendrier', 'Examens et dates importantes')" 
-                    class="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors text-sm" 
-                    aria-label="Accéder au calendrier des examens">
-                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                <span>Calendrier</span>
-            </button>
-            <button onclick="navigate('quiz-page', 'Quiz', 'Tests interactifs')" 
-                    class="flex items-center space-x-2 px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-colors text-sm" 
-                    aria-label="Accéder aux quiz interactifs">
-                <i class="fas fa-question-circle" aria-hidden="true"></i>
-                <span>Quiz</span>
-            </button>
-            <button onclick="navigate('leaderboard-page', 'Classement', 'Top contributeurs')" 
-                    class="flex items-center space-x-2 px-4 py-2 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition-colors text-sm" 
-                    aria-label="Voir le classement des contributeurs">
-                <i class="fas fa-trophy" aria-hidden="true"></i>
-                <span>Classement</span>
-            </button>
-        </div>
-        
-        <!-- Search filters dropdown -->
-        <div id="search-filters" class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 hidden z-20">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filière</label>
-                    <select id="filter-filiere" class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm">
-                        <option value="">Toutes les filières</option>
-                        <option value="AP">AP - Analyse et Programmation</option>
-                        <option value="IIR">IIR - Ingénierie Informatique et Réseaux</option>
-                        <option value="GI">GI - Génie Industriel</option>
-                        <option value="GC">GC - Génie Civil</option>
-                        <option value="GESI">GESI - Génie Électrique et Systèmes Intelligents</option>
-                        <option value="GF">GF - Génie Financier</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type de document</label>
-                    <select id="filter-type" class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm">
-                        <option value="">Tous les types</option>
-                        <option value="cours">Cours</option>
-                        <option value="td">Travaux Dirigés</option>
-                        <option value="exam">Examens</option>
-                        <option value="corrige">Corrigés</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Année</label>
-                    <select id="filter-annee" class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white text-sm">
-                        <option value="">Toutes les années</option>
-                        <option value="3">3ème année</option>
-                        <option value="4">4ème année</option>
-                        <option value="5">5ème année</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex justify-end mt-4 space-x-2">
-                <button id="clear-filters" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white transition-colors text-sm">Effacer</button>
-                <button id="apply-filters" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm">Appliquer</button>
-            </div>
-        </div>
-    </div>
-    
-    <p id="header-subtitle" class="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
+    <p id="header-subtitle" class="text-center text-sm sm:text-base text-green-700 mt-2">
         Centre de ressources académiques - Choisissez votre filière d'études
     </p>
 </header>
 
-<!-- Mobile Sidebar -->
-<div id="mobile-sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 lg:hidden" role="navigation" aria-label="Menu de navigation principal">
-    <div class="p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl font-bold text-gray-800 dark:text-white">Menu</h2>
-            <button id="close-sidebar" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" aria-label="Fermer le menu de navigation">
-                <i class="fas fa-times text-gray-600 dark:text-gray-300" aria-hidden="true"></i>
-            </button>
-        </div>
-        <nav class="space-y-2" role="navigation" aria-label="Navigation principale">
-            <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques')" 
-                    class="w-full flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors text-left" 
-                    aria-label="Retourner à la page d'accueil">
-                <i class="fas fa-home mr-3" aria-hidden="true"></i> Accueil
-            </button>
-            <button onclick="navigate('calendar-page', 'Calendrier', 'Examens et dates importantes')" 
-                    class="w-full flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors text-left" 
-                    aria-label="Voir le calendrier des examens">
-                <i class="fas fa-calendar-alt mr-3" aria-hidden="true"></i> Calendrier
-            </button>
-            <button onclick="navigate('leaderboard-page', 'Classement', 'Top contributeurs')" 
-                    class="w-full flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors text-left" 
-                    aria-label="Voir le classement des contributeurs">
-                <i class="fas fa-trophy mr-3" aria-hidden="true"></i> Classement
-            </button>
-            <button onclick="navigate('quiz-page', 'Quiz', 'Tests interactifs')" 
-                    class="w-full flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors text-left" 
-                    aria-label="Accéder aux quiz interactifs">
-                <i class="fas fa-question-circle mr-3" aria-hidden="true"></i> Quiz
-            </button>
-        </nav>
-    </div>
-</div>
-
-<!-- Overlay for mobile sidebar -->
-<div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
-
-
-
-<!-- Chatbot -->
-<div id="chatbot" class="chatbot fixed bottom-4 right-4 w-80 h-96 bg-white rounded-lg shadow-lg z-30 flex flex-col border-2 border-green-200">
-    <div class="p-4 border-b border-green-200 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                <i class="fas fa-robot text-white text-sm" aria-hidden="true"></i>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-800">Assistant IA</h3>
-        </div>
-        <button id="close-chatbot" class="text-green-600 hover:text-green-800 transition-colors" aria-label="Fermer le chatbot">
-            <i class="fas fa-times" aria-hidden="true"></i>
-        </button>
-    </div>
-    <div id="chatbot-messages" class="flex-1 p-4 overflow-y-auto space-y-3">
-        <div class="flex items-start space-x-2">
-            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-robot text-white text-xs" aria-hidden="true"></i>
-            </div>
-            <div class="bg-green-50 rounded-lg p-3 max-w-xs border border-green-200">
-                <p class="text-sm text-gray-800">Bonjour ! Je suis votre assistant académique. Comment puis-je vous aider ?</p>
-            </div>
-        </div>
-    </div>
-    <div class="p-4 border-t border-green-200">
-        <div class="flex space-x-2">
-            <input type="text" id="chatbot-input" placeholder="Posez votre question..." 
-                   class="flex-1 px-3 py-2 border border-green-200 rounded-lg bg-green-50 text-gray-800 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
-            <button id="chatbot-send" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors" aria-label="Envoyer le message">
-                <i class="fas fa-paper-plane" aria-hidden="true"></i>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Chatbot Toggle Button -->
-<button id="chatbot-toggle" class="fixed bottom-4 right-4 w-14 h-14 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-colors z-20" aria-label="Ouvrir le chatbot">
-    <i class="fas fa-comments" aria-hidden="true"></i>
-</button>
-
 <!-- Main content container for all pages -->
-<div class="min-h-screen p-4 sm:p-8 md:p-12 lg:p-16 flex flex-col items-center">
+<div class="min-h-screen p-4 sm:p-8 md:p-12 lg:p-16 pb-28 flex flex-col items-center">
 
     <!-- Home Page -->
-    <div id="home-page" class="page active text-center w-full" data-searchable>
+    <div id="home-page" class="page active text-center w-full">
+        <h2 class="text-3xl font-bold mb-6">Les Filières</h2>
         <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
             <!-- Filière buttons with "Accéder à" text -->
-            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-green-100 hover:border-green-300" data-searchable>
-                <i class="icon fas fa-code text-green-600" aria-hidden="true"></i>
-                <h2 class="text-xl font-bold mt-4 text-gray-800">AP</h2>
-                <p class="text-sm text-green-600">Analyse et Programmation</p>
-                <button onclick="navigate('ap-page', 'AP', 'Analyse et Programmation')" 
-                        class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
-                        aria-label="Accéder à la filière AP - Analyse et Programmation">
-                    Accéder à AP
-                </button>
+            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <i class="icon fas fa-code"></i>
+                <h2 class="text-xl font-bold mt-4">AP</h2>
+                <p class="text-sm text-gray-500">Années Préparatoires</p>
+                <button onclick="navigate('ap-page', 'AP', 'Années Préparatoires')" class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">Accéder à AP</button>
             </div>
-            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-green-100 hover:border-green-300" data-searchable>
-                <i class="icon fas fa-network-wired text-green-600" aria-hidden="true"></i>
-                <h2 class="text-xl font-bold mt-4 text-gray-800">IIR</h2>
-                <p class="text-sm text-green-600">Ingénierie Informatique et Réseaux</p>
-                <button onclick="navigate('iir-page', 'IIR', 'Ingénierie Informatique et Réseaux')" 
-                        class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
-                        aria-label="Accéder à la filière IIR - Ingénierie Informatique et Réseaux">
-                    Accéder à IIR
-                </button>
+            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <i class="icon fas fa-network-wired"></i>
+                <h2 class="text-xl font-bold mt-4">IIR</h2>
+                <p class="text-sm text-gray-500">Ingénierie Informatique et Réseaux</p>
+                <button onclick="navigate('iir-page', 'IIR', 'Ingénierie Informatique et Réseaux')" class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">Accéder à IIR</button>
             </div>
-            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-green-100 hover:border-green-300" data-searchable>
-                <i class="icon fas fa-cogs text-green-600" aria-hidden="true"></i>
-                <h2 class="text-xl font-bold mt-4 text-gray-800">GI</h2>
-                <p class="text-sm text-green-600">Génie Industriel</p>
-                <button onclick="navigate('gi-page', 'GI', 'Génie Industriel')" 
-                        class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
-                        aria-label="Accéder à la filière GI - Génie Industriel">
-                    Accéder à GI
-                </button>
+            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <i class="icon fas fa-cogs"></i>
+                <h2 class="text-xl font-bold mt-4">GI</h2>
+                <p class="text-sm text-gray-500">Génie Industriel</p>
+                <button onclick="navigate('gi-page', 'GI', 'Génie Industriel')" class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">Accéder à GI</button>
             </div>
-            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-green-100 hover:border-green-300" data-searchable>
-                <i class="icon fas fa-helmet-safety text-green-600" aria-hidden="true"></i>
-                <h2 class="text-xl font-bold mt-4 text-gray-800">GC</h2>
-                <p class="text-sm text-green-600">Génie Civil</p>
-                <button onclick="navigate('gc-page', 'GC', 'Génie Civil')" 
-                        class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
-                        aria-label="Accéder à la filière GC - Génie Civil">
-                    Accéder à GC
-                </button>
+            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <i class="icon fas fa-helmet-safety"></i>
+                <h2 class="text-xl font-bold mt-4">GC</h2>
+                <p class="text-sm text-gray-500">Génie Civil</p>
+                <button onclick="navigate('gc-page', 'GC', 'Génie Civil')" class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">Accéder à GC</button>
             </div>
-            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-green-100 hover:border-green-300" data-searchable>
-                <i class="icon fas fa-bolt text-green-600" aria-hidden="true"></i>
-                <h2 class="text-xl font-bold mt-4 text-gray-800">GESI</h2>
-                <p class="text-sm text-green-600">Génie Électrique et Systèmes Intelligents</p>
-                <button onclick="navigate('gesi-page', 'GESI', 'Génie Électrique et Systèmes Intelligents')" 
-                        class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
-                        aria-label="Accéder à la filière GESI - Génie Électrique et Systèmes Intelligents">
-                    Accéder à GESI
-                </button>
+            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <i class="icon fas fa-bolt"></i>
+                <h2 class="text-xl font-bold mt-4">GESI</h2>
+                <p class="text-sm text-gray-500">Génie Électrique et Systèmes Intelligents</p>
+                <button onclick="navigate('gesi-page', 'GESI', 'Génie Électrique et Systèmes Intelligents')" class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">Accéder à GESI</button>
             </div>
-            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-green-100 hover:border-green-300" data-searchable>
-                <i class="icon fas fa-chart-line text-green-600" aria-hidden="true"></i>
-                <h2 class="text-xl font-bold mt-4 text-gray-800">GF</h2>
-                <p class="text-sm text-green-600">Génie Financier</p>
-                <button onclick="navigate('gf-page', 'GF', 'Génie Financier')" 
-                        class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
-                        aria-label="Accéder à la filière GF - Génie Financier">
-                    Accéder à GF
-                </button>
+            <div class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <i class="icon fas fa-chart-line"></i>
+                <h2 class="text-xl font-bold mt-4">GF</h2>
+                <p class="text-sm text-gray-500">Génie Financier</p>
+                <button onclick="navigate('gf-page', 'GF', 'Génie Financier')" class="mt-4 px-6 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">Accéder à GF</button>
             </div>
         </main>
+
+        <!-- Leaderboard (Classement) directly under "Les Filières" -->
+        <section id="home-leaderboard" class="w-full max-w-4xl mx-auto mt-10">
+            <h3 class="text-2xl font-bold text-center">Leaderboard</h3>
+            <div class="mt-4 overflow-x-auto">
+                <table class="min-w-full bg-white rounded-2xl shadow border border-gray-200 mx-auto">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Rang</th>
+                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Nom du contributeur</th>
+                            <th class="px-4 py-3 text-left font-semibold text-gray-700">Nombre de ressources partagées</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="px-4 py-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-yellow-400 text-white font-bold">Top 1</span>
+                            </td>
+                            <td class="px-4 py-3">Yassine</td>
+                            <td class="px-4 py-3">12</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-300 text-gray-900 font-bold">Top 2</span>
+                            </td>
+                            <td class="px-4 py-3">Aymane</td>
+                            <td class="px-4 py-3">9</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-700 text-white font-bold">Top 3</span>
+                            </td>
+                            <td class="px-4 py-3">Salma</td>
+                            <td class="px-4 py-3">7</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-200 text-green-900 font-bold">Top 4</span>
+                            </td>
+                            <td class="px-4 py-3">Omar</td>
+                            <td class="px-4 py-3">5</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-200 text-blue-900 font-bold">Top 5</span>
+                            </td>
+                            <td class="px-4 py-3">Sara</td>
+                            <td class="px-4 py-3">4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
         
         <div class="mt-16 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
             <div class="flex-1 text-left bg-white p-8 rounded-3xl shadow-lg border border-gray-200 neon-light">
@@ -469,396 +217,27 @@
         </div>
     </div>
 
-    <!-- Calendar Page -->
-    <div id="calendar-page" class="page text-center w-full" data-searchable>
-        <header class="mb-8">
-            <p class="text-base text-gray-700 dark:text-gray-300 font-bold flex items-center justify-center">
-                <i class="fas fa-calendar-alt text-green-600 mr-2"></i> Calendrier académique
-            </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Examens, deadlines et événements importants</p>
-        </header>
-        <main class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Calendar Widget -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Calendrier</h3>
-                    <div id="calendar-widget" class="space-y-2">
-                        <!-- Calendar will be populated by JavaScript -->
-                    </div>
-                </div>
-                
-                <!-- Upcoming Events -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Événements à venir</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                            <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
-                                <span class="text-white font-bold">15</span>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800 dark:text-white">Examen Mathématiques</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">15 Janvier 2024 - 14h00</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                                <span class="text-white font-bold">18</span>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800 dark:text-white">Rendu Projet</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">18 Janvier 2024 - 23h59</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                                <span class="text-white font-bold">22</span>
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800 dark:text-white">Examen Algorithmique</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">22 Janvier 2024 - 10h00</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer class="mt-8 flex justify-center space-x-3">
-            <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques')" class="px-5 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white font-bold rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200">
-                <i class="fas fa-home mr-2"></i> Accueil
-            </button>
-            <button onclick="navigate('quiz-page', 'Quiz', 'Tests interactifs')" class="px-5 py-2 bg-purple-500 text-white font-bold rounded-full hover:bg-purple-600 transition-colors duration-200">
-                <i class="fas fa-question-circle mr-2"></i> Quiz
-            </button>
-            <button onclick="navigate('leaderboard-page', 'Classement', 'Top contributeurs')" class="px-5 py-2 bg-yellow-500 text-white font-bold rounded-full hover:bg-yellow-600 transition-colors duration-200">
-                <i class="fas fa-trophy mr-2"></i> Classement
-            </button>
-        </footer>
-    </div>
-
-    <!-- Leaderboard Page -->
-    <div id="leaderboard-page" class="page text-center w-full" data-searchable>
-        <header class="mb-8">
-            <p class="text-base text-gray-700 dark:text-gray-300 font-bold flex items-center justify-center">
-                <i class="fas fa-trophy text-yellow-500 mr-2"></i> Classement des contributeurs
-            </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Top 10 des étudiants les plus actifs</p>
-        </header>
-        <main class="max-w-4xl mx-auto">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <div class="space-y-4">
-                    <!-- Top 3 with special styling -->
-                    <div class="flex items-center space-x-4 p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-lg border-2 border-yellow-200 dark:border-yellow-700">
-                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-crown text-white text-xl"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="font-bold text-lg text-gray-800 dark:text-white">Ahmed Benali</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">47 ressources partagées</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-2xl font-bold text-yellow-600">1er</p>
-                            <div class="flex space-x-1">
-                                <i class="fas fa-star text-yellow-500"></i>
-                                <i class="fas fa-star text-yellow-500"></i>
-                                <i class="fas fa-star text-yellow-500"></i>
-                                <i class="fas fa-star text-yellow-500"></i>
-                                <i class="fas fa-star text-yellow-500"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg">
-                        <div class="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center">
-                            <span class="text-white font-bold text-lg">2</span>
-                        </div>
-                        <div class="flex-1">
-                            <p class="font-bold text-lg text-gray-800 dark:text-white">Fatima Zahra</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">35 ressources partagées</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xl font-bold text-gray-600">2ème</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4 p-4 bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg">
-                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                            <span class="text-white font-bold text-lg">3</span>
-                        </div>
-                        <div class="flex-1">
-                            <p class="font-bold text-lg text-gray-800 dark:text-white">Youssef Alami</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">28 ressources partagées</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xl font-bold text-orange-600">3ème</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Rest of the leaderboard -->
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <div class="flex items-center space-x-3">
-                                <span class="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm font-bold">4</span>
-                                <span class="font-medium text-gray-800 dark:text-white">Amina Tazi</span>
-                            </div>
-                            <span class="text-sm text-gray-600 dark:text-gray-400">22 ressources</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <div class="flex items-center space-x-3">
-                                <span class="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm font-bold">5</span>
-                                <span class="font-medium text-gray-800 dark:text-white">Omar Idrissi</span>
-                            </div>
-                            <span class="text-sm text-gray-600 dark:text-gray-400">19 ressources</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer class="mt-8 flex justify-center space-x-3">
-            <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques')" class="px-5 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white font-bold rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200">
-                <i class="fas fa-home mr-2"></i> Accueil
-            </button>
-            <button onclick="navigate('calendar-page', 'Calendrier', 'Examens et dates importantes')" class="px-5 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">
-                <i class="fas fa-calendar-alt mr-2"></i> Calendrier
-            </button>
-            <button onclick="navigate('quiz-page', 'Quiz', 'Tests interactifs')" class="px-5 py-2 bg-purple-500 text-white font-bold rounded-full hover:bg-purple-600 transition-colors duration-200">
-                <i class="fas fa-question-circle mr-2"></i> Quiz
-            </button>
-        </footer>
-    </div>
-
-    <!-- Quiz Page -->
-    <div id="quiz-page" class="page text-center w-full" data-searchable>
-        <header class="mb-8">
-            <p class="text-base text-gray-700 dark:text-gray-300 font-bold flex items-center justify-center">
-                <i class="fas fa-question-circle text-blue-500 mr-2"></i> Quiz interactifs
-            </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Testez vos connaissances par module</p>
-        </header>
-        <main class="max-w-4xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <i class="fas fa-calculator text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Mathématiques</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">10 questions - 3IIR S5</p>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Difficulté:</span>
-                        <div class="flex space-x-1">
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="far fa-star text-gray-300"></i>
-                            <i class="far fa-star text-gray-300"></i>
-                        </div>
-                    </div>
-                    <button onclick="startQuiz('math-quiz')" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
-                        Commencer le quiz
-                    </button>
-                </div>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <i class="fas fa-code text-4xl text-green-500 mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Algorithmique</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">15 questions - 3IIR S5</p>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Difficulté:</span>
-                        <div class="flex space-x-1">
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="far fa-star text-gray-300"></i>
-                        </div>
-                    </div>
-                    <button onclick="startQuiz('algo-quiz')" class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors">
-                        Commencer le quiz
-                    </button>
-                </div>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <i class="fas fa-network-wired text-4xl text-purple-500 mb-4"></i>
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Réseaux</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">12 questions - 4IIR S7</p>
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Difficulté:</span>
-                        <div class="flex space-x-1">
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                        </div>
-                    </div>
-                    <button onclick="startQuiz('reseau-quiz')" class="w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors">
-                        Commencer le quiz
-                    </button>
-                </div>
-            </div>
-        </main>
-        <footer class="mt-8 flex justify-center space-x-3">
-            <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques')" class="px-5 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white font-bold rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200">
-                <i class="fas fa-home mr-2"></i> Accueil
-            </button>
-            <button onclick="navigate('calendar-page', 'Calendrier', 'Examens et dates importantes')" class="px-5 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors duration-200">
-                <i class="fas fa-calendar-alt mr-2"></i> Calendrier
-            </button>
-            <button onclick="navigate('leaderboard-page', 'Classement', 'Top contributeurs')" class="px-5 py-2 bg-yellow-500 text-white font-bold rounded-full hover:bg-yellow-600 transition-colors duration-200">
-                <i class="fas fa-trophy mr-2"></i> Classement
-            </button>
-        </footer>
-    </div>
-
-    <!-- Module Page Template -->
-    <div id="module-page" class="page text-center w-full">
-        <header class="mb-8">
-            <p class="text-base text-gray-700 dark:text-gray-300 font-bold flex items-center justify-center">
-                <i class="fas fa-book text-green-600 mr-2"></i> <span id="module-title">Module</span>
-            </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400" id="module-description">Description du module</p>
-        </header>
-        <main class="max-w-6xl mx-auto">
-            <!-- Module Resources -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow" data-resource-id="resource-1">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Cours PDF</h3>
-                        <div class="rating-stars">
-                            <i class="fas fa-star star" onclick="rateResource('resource-1', 1)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-1', 2)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-1', 3)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-1', 4)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-1', 5)"></i>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Cours complet avec exercices</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-500 dark:text-gray-400">4.2/5 (23 votes)</span>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
-                            <i class="fas fa-download mr-2"></i>Télécharger
-                        </button>
-                    </div>
-                    <!-- Comments Section -->
-                    <div class="mt-4 comments-container">
-                        <div class="comment bg-gray-50 dark:bg-gray-700 p-3 rounded-lg mb-2">
-                            <div class="flex justify-between items-start mb-1">
-                                <span class="font-semibold text-sm text-gray-800 dark:text-white">Ahmed B.</span>
-                                <span class="text-xs text-gray-500 dark:text-gray-400">15 Jan</span>
-                            </div>
-                            <p class="text-sm text-gray-700 dark:text-gray-300">Très bon cours, explications claires !</p>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <input type="text" id="comment-resource-1" placeholder="Ajouter un commentaire..." 
-                               class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-sm">
-                        <button onclick="addComment('resource-1', document.getElementById('comment-resource-1').value)" 
-                                class="mt-2 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
-                            Commenter
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow" data-resource-id="resource-2">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">TD Corrigés</h3>
-                        <div class="rating-stars">
-                            <i class="fas fa-star star" onclick="rateResource('resource-2', 1)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-2', 2)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-2', 3)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-2', 4)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-2', 5)"></i>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Travaux dirigés avec solutions</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-500 dark:text-gray-400">4.8/5 (45 votes)</span>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
-                            <i class="fas fa-download mr-2"></i>Télécharger
-                        </button>
-                    </div>
-                    <!-- Comments Section -->
-                    <div class="mt-4 comments-container">
-                        <div class="comment bg-gray-50 dark:bg-gray-700 p-3 rounded-lg mb-2">
-                            <div class="flex justify-between items-start mb-1">
-                                <span class="font-semibold text-sm text-gray-800 dark:text-white">Fatima Z.</span>
-                                <span class="text-xs text-gray-500 dark:text-gray-400">12 Jan</span>
-                            </div>
-                            <p class="text-sm text-gray-700 dark:text-gray-300">Solutions très détaillées, parfait pour réviser !</p>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <input type="text" id="comment-resource-2" placeholder="Ajouter un commentaire..." 
-                               class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-sm">
-                        <button onclick="addComment('resource-2', document.getElementById('comment-resource-2').value)" 
-                                class="mt-2 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
-                            Commenter
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow" data-resource-id="resource-3">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Examens Passés</h3>
-                        <div class="rating-stars">
-                            <i class="fas fa-star star" onclick="rateResource('resource-3', 1)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-3', 2)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-3', 3)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-3', 4)"></i>
-                            <i class="fas fa-star star" onclick="rateResource('resource-3', 5)"></i>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Sujets d'examens des années précédentes</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-500 dark:text-gray-400">4.5/5 (67 votes)</span>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
-                            <i class="fas fa-download mr-2"></i>Télécharger
-                        </button>
-                    </div>
-                    <!-- Comments Section -->
-                    <div class="mt-4 comments-container">
-                        <div class="comment bg-gray-50 dark:bg-gray-700 p-3 rounded-lg mb-2">
-                            <div class="flex justify-between items-start mb-1">
-                                <span class="font-semibold text-sm text-gray-800 dark:text-white">Youssef A.</span>
-                                <span class="text-xs text-gray-500 dark:text-gray-400">10 Jan</span>
-                            </div>
-                            <p class="text-sm text-gray-700 dark:text-gray-300">Excellent pour s'entraîner avant l'examen !</p>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <input type="text" id="comment-resource-3" placeholder="Ajouter un commentaire..." 
-                               class="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-sm">
-                        <button onclick="addComment('resource-3', document.getElementById('comment-resource-3').value)" 
-                                class="mt-2 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
-                            Commenter
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <footer class="mt-8 flex justify-center space-x-4">
-            <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques')" class="px-6 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white font-bold rounded-full hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200">
-                <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
-            </button>
-        </footer>
-    </div>
-
     <!-- AP Page -->
-    <div id="ap-page" class="page text-center w-full" data-searchable>
+    <div id="ap-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
                 <i class="fas fa-calendar-alt text-green-600 mr-2"></i> Choisissez votre année d'études.
             </p>
             <p class="text-sm text-gray-500">Sélectionnez l'année pour accéder aux ressources et documents.</p>
         </header>
-        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl mx-auto">
-            <button onclick="navigate('1ap-page', '1AP', 'Première Année - Analyse et Programmation', 'ap-page', 'Analyse et Programmation')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
-                <i class="icon fas fa-book-reader"></i>
-                <h2 class="text-xl font-bold mt-4">1AP</h2>
-                <p class="text-sm text-gray-500">Première Année</p>
-            </button>
-            <button onclick="navigate('2ap-page', '2AP', 'Deuxième Année - Analyse et Programmation', 'ap-page', 'Analyse et Programmation')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
-                <i class="icon fas fa-book-reader"></i>
-                <h2 class="text-xl font-bold mt-4">2AP</h2>
-                <p class="text-sm text-gray-500">Deuxième Année</p>
-            </button>
+        <main class="min-h-[calc(100vh-10rem)] ">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-xl mx-auto">
+                <button onclick="navigate('1ap-page', '1AP', 'Première Année - Années Préparatoires', 'ap-page', 'Années Préparatoires')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+                    <i class="icon fas fa-book-reader"></i>
+                    <h2 class="text-xl font-bold mt-4">1AP</h2>
+                    <p class="text-sm text-gray-500">Première Année</p>
+                </button>
+                <button onclick="navigate('2ap-page', '2AP', 'Deuxième Année - Années Préparatoires', 'ap-page', 'Années Préparatoires')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+                    <i class="icon fas fa-book-reader"></i>
+                    <h2 class="text-xl font-bold mt-4">2AP</h2>
+                    <p class="text-sm text-gray-500">Deuxième Année</p>
+                </button>
+            </div>
         </main>
         <footer class="mt-8 flex justify-center space-x-4">
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
@@ -868,7 +247,7 @@
     </div>
     
     <!-- IIR Page -->
-    <div id="iir-page" class="page text-center w-full" data-searchable>
+    <div id="iir-page" class="page text-center w-full">
         <header class="mb-8">
             <p class="text-base text-gray-700 font-bold flex items-center justify-center">
                 <i class="fas fa-calendar-alt text-green-600 mr-2"></i> Choisissez votre année d'études.
@@ -1171,6 +550,7 @@
         </footer>
     </div>
 
+
     <!-- GC Page -->
     <div id="gc-page" class="page text-center w-full">
         <header class="mb-8">
@@ -1283,10 +663,10 @@
             <p class="text-sm text-gray-500">Accédez aux ressources par semestre académique.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl mx-auto">
-            <button onclick="navigate('1ap-s1-page', 'S1', 'Modules - Premier semestre (1AP)', '1ap-page', 'Première Année - Analyse et Programmation')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+            <button onclick="navigate('1ap-s1-page', 'S1', 'Modules - Premier semestre (1AP)', '1ap-page', 'Première Année -  Années Préparatoires')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
                 <i class="icon fas fa-calendar-alt"></i><h2 class="text-xl font-bold mt-4">S1</h2><p class="text-sm text-gray-500">Premier semestre</p>
             </button>
-            <button onclick="navigate('1ap-s2-page', 'S2', 'Modules - Deuxième semestre (1AP)', '1ap-page', 'Première Année - Analyse et Programmation')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+            <button onclick="navigate('1ap-s2-page', 'S2', 'Modules - Deuxième semestre (1AP)', '1ap-page', 'Première Année - Années Préparatoires')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
                 <i class="icon fas fa-calendar-alt"></i><h2 class="text-xl font-bold mt-4">S2</h2><p class="text-sm text-gray-500">Deuxième semestre</p>
             </button>
         </main>
@@ -1294,7 +674,7 @@
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
             </button>
-            <button onclick="navigate('ap-page', 'AP', 'Analyse et Programmation')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
+            <button onclick="navigate('ap-page', 'AP', 'Années Préparatoires')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à AP
             </button>
         </footer>
@@ -1307,36 +687,48 @@
             <p class="text-sm text-gray-500">Sélectionnez un module pour accéder à ses ressources.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto">
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-square-root-alt"></i><h2 class="text-xl font-bold mt-4">Algèbre</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-cogs"></i><h2 class="text-xl font-bold mt-4">LPC</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Algo</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">CE</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-laptop"></i><h2 class="text-xl font-bold mt-4">CN</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">FR</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-globe"></i><h2 class="text-xl font-bold mt-4">ANG</h2>
-            </button>
+            <a href="https://drive.google.com/drive/folders/1pp2cHdGiFxrPRPTlqKilHJNpzVvDrQDd?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/16iYzXR7YIfVsZrhzpIRXK_N0kj_3_hnx?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-square-root-alt"></i><h2 class="text-xl font-bold mt-4">Algèbre 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1iCYVftISmyhdoW2MJXZP9MCJZF4lyZji?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-code"></i><h2 class="text-xl font-bold mt-4">Langage de programmation</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1GNR3QwcC1K_xUfLeiFgn3FNukg6uBZ3K?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Algorithmique 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1HUwm7flvArE77JsVu2icob6mAr0tfy2w?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">Circuit électrique 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1BMBM3NxsLqLehBZUaN-IaLlsy_jf9TLU?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-laptop"></i><h2 class="text-xl font-bold mt-4">Circuit numérique 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/12HgGq8w6CbpA2Mh1U9OtQqn_9U4BhmeC?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-chart-line"></i><h2 class="text-xl font-bold mt-4">Micro économie</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1xPep8WZzgGTJozgc7Re5Q7yO_7HKOzHI?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-cog"></i><h2 class="text-xl font-bold mt-4">TEC </h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1AFpGDfmFMr3DwNDatUImOz6fOfPtpTzm?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">Anglais 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1Kl-dvJ0Sv3CgjXXk_5p5OLuyS5OdYfgK?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-building"></i><h2 class="text-xl font-bold mt-4">Organisation des entreprises</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/11pOIkoEhhGuPCPZfvgenT2cK-bc-icEm?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Comptabilité</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1GFaIk5FSBMNPVD1mtYa3JIA2msLNWe8r?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-book"></i><h2 class="text-xl font-bold mt-4">Méthodologie du travail universitaire</h2>
+            </a>
         </main>
         <footer class="mt-8 flex justify-center space-x-4">
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
             </button>
-            <button onclick="navigate('1ap-page', '1AP', 'Première Année - Analyse et Programmation')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
+            <button onclick="navigate('1ap-page', '1AP', 'Première Année - Années Préparatoires')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à 1AP
             </button>
         </footer>
@@ -1349,36 +741,57 @@
             <p class="text-sm text-gray-500">Sélectionnez un module pour accéder à ses ressources.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto">
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-square-root-alt"></i><h2 class="text-xl font-bold mt-4">Algèbre</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-cogs"></i><h2 class="text-xl font-bold mt-4">LPC</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Algo</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">CE</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-laptop"></i><h2 class="text-xl font-bold mt-4">CN</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">FR</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-globe"></i><h2 class="text-xl font-bold mt-4">ANG</h2>
-            </button>
+            <a href="https://drive.google.com/drive/folders/15-ICHTLGKfhCe5zfJHmNxZb_wwSKM3hL?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1lEl2n6cG6Qibq-goKTJ0maFe5_utQe-y?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-square-root-alt"></i><h2 class="text-xl font-bold mt-4">Algèbre 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/11D80OWYWZuEg3CaNNOoxXPvUJuGllXPc?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-cog"></i><h2 class="text-xl font-bold mt-4">TEC </h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1AQcpUDnHMFs1BHF43G3ww9K2t0bQmE8V?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">Anglais 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1WNSOxCfVtmRkHz01RmUNQGOtsVvwKqXE?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-code"></i><h2 class="text-xl font-bold mt-4">Langage de programmation 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1wgYgIhiv3V1HShAl7F7sj51-RvBH8vRy?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Algorithmique 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/16Duch_TwNCl0QoIY_1skyaByv4ALmgrZ?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">Circuit électrique 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1KMVk1tMvhCebeSl9VUw1ZFg8B9gsK-JO?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-laptop"></i><h2 class="text-xl font-bold mt-4">Circuit numérique 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1lPWNxwn3Eudwqhqza1HHG5-asf9sFNOb?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-gavel"></i><h2 class="text-xl font-bold mt-4">Droit</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1E7H0fMuGsPOVqF1qN1JGOqPLEYqoaKWR?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-desktop"></i><h2 class="text-xl font-bold mt-4">Architecture des ordinateurs</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1kDxCRGO2vo_VnkgrAatsRh2_fz8pTBT0?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-users"></i><h2 class="text-xl font-bold mt-4">Management</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1inQDpj2WmMa_rjh-bRkrCV_3rPVo-etV?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-robot"></i><h2 class="text-xl font-bold mt-4">Automatismes séquentiels</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1yv1gE6nvFLOUyW9XrLzRLZih7__H5G3F?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-magnet"></i><h2 class="text-xl font-bold mt-4">Électromagnétisme</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1HnghkeAABMa7oCbjRmm5Wn1YfXNVOC2s?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-brain"></i><h2 class="text-xl font-bold mt-4">Initiation à IA</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1lFLiikmw-TE8TEFfY29GBt5d9OCVn5Ob?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-thermometer-half"></i><h2 class="text-xl font-bold mt-4">Thermodynamique</h2>
+            </a>
         </main>
         <footer class="mt-8 flex justify-center space-x-4">
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
             </button>
-            <button onclick="navigate('1ap-page', '1AP', 'Première Année - Analyse et Programmation')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
+            <button onclick="navigate('1ap-page', '1AP', 'Première Année - Années Préparatoires')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à 1AP
             </button>
         </footer>
@@ -1393,10 +806,10 @@
             <p class="text-sm text-gray-500">Accédez aux ressources par semestre académique.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl mx-auto">
-            <button onclick="navigate('2ap-s3-page', 'S3', 'Modules - Troisième semestre (2AP)', '2ap-page', 'Deuxième Année - Analyse et Programmation')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+            <button onclick="navigate('2ap-s3-page', 'S3', 'Modules - Troisième semestre (2AP)', '2ap-page', 'Deuxième Année - Années Préparatoires')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
                 <i class="icon fas fa-calendar-alt"></i><h2 class="text-xl font-bold mt-4">S3</h2><p class="text-sm text-gray-500">Troisième semestre</p>
             </button>
-            <button onclick="navigate('2ap-s4-page', 'S4', 'Modules - Quatrième semestre (2AP)', '2ap-page', 'Deuxième Année - Analyse et Programmation')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+            <button onclick="navigate('2ap-s4-page', 'S4', 'Modules - Quatrième semestre (2AP)', '2ap-page', 'Deuxième Année - Années Préparatoires')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
                 <i class="icon fas fa-calendar-alt"></i><h2 class="text-xl font-bold mt-4">S4</h2><p class="text-sm text-gray-500">Quatrième semestre</p>
             </button>
         </main>
@@ -1404,7 +817,7 @@
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
             </button>
-            <button onclick="navigate('ap-page', 'AP', 'Analyse et Programmation')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
+            <button onclick="navigate('ap-page', 'AP', 'Années Préparatoires')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à AP
             </button>
         </footer>
@@ -1417,45 +830,45 @@
             <p class="text-sm text-gray-500">Sélectionnez un module pour accéder à ses ressources.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto">
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-chart-line"></i><h2 class="text-xl font-bold mt-4">Proba</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-code"></i><h2 class="text-xl font-bold mt-4">Programme</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-cog"></i><h2 class="text-xl font-bold mt-4">TEC</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">ANG</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-chart-bar"></i><h2 class="text-xl font-bold mt-4">Macro</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-plug"></i><h2 class="text-xl font-bold mt-4">Électro</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Micro</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-robot"></i><h2 class="text-xl font-bold mt-4">Auto</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">SE</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-drafting-compass"></i><h2 class="text-xl font-bold mt-4">Conception</h2>
-            </button>
+            <a href="https://drive.google.com/drive/folders/1p8we0ZQZLU1L-mHe16BJuv5g69tK5AeG?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse 3</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1FtWGbZx_EFzNBEDIwcbZ8eGR8ic26-zj?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-chart-line"></i><h2 class="text-xl font-bold mt-4">Probabilité</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1f3UoYhSxxGCnZHQsCkfOYh40zw75WPmj?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-code"></i><h2 class="text-xl font-bold mt-4">Programmation avancée 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1Bd9G7KHOz7XGJRwTKlAswXNRkUBMTI-G?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-cog"></i><h2 class="text-xl font-bold mt-4">TEC 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1Ab2-NG_w8_VOYoEYNdtbaDk9drnXVPfR?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">Anglais 3</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1r3FQNoILJXObU10c4XlZuyAHouzlsZ1O?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-chart-bar"></i><h2 class="text-xl font-bold mt-4">Macro économie</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1IISjHWXXeskDAh7X5840kDHcsdffu-3V?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-plug"></i><h2 class="text-xl font-bold mt-4">Électronique analogique 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1_EEjqIT4c_2pULCd1w0uOq6REvZj7-ag?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Microprocesseurs</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1JAjMNS9QOLA_d625_O2kbTVbE2IUcKsQ?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-robot"></i><h2 class="text-xl font-bold mt-4">Automatismes séquentiels (cas pratiques)</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1BtIx93I_x554d-ckB9-MZ9izP0C2WUhc?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">Systèmes d'exploitation 1</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/105AQIgFlN2swPegH--ZYa72L_GfAHpMc?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-drafting-compass"></i><h2 class="text-xl font-bold mt-4">Conception des systèmes d'information 1</h2>
+            </a>
         </main>
         <footer class="mt-8 flex justify-center space-x-4">
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
             </button>
-            <button onclick="navigate('2ap-page', '2AP', 'Deuxième Année - Analyse et Programmation')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
+            <button onclick="navigate('2ap-page', '2AP', 'Deuxième Année - Années Préparatoires')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à 2AP
             </button>
         </footer>
@@ -1470,48 +883,48 @@
             <p class="text-sm text-gray-500">Sélectionnez un module pour accéder à ses ressources.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl mx-auto">
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+            <a href="https://drive.google.com/drive/folders/1oXbfLZXPhTai_gejPcpFNNPhUX7aB1Hq?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-calculator"></i><h2 class="text-xl font-bold mt-4">Analyse 4</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1VqwivBXcbIBEAqLosIMYWQaEg4inuS7o?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
                 <i class="icon fas fa-chart-pie"></i><h2 class="text-xl font-bold mt-4">Statistique</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-code"></i><h2 class="text-xl font-bold mt-4">Programme</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-cogs"></i><h2 class="text-xl font-bold mt-4">Technologie</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">ANG</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-book-open"></i><h2 class="text-xl font-bold mt-4">Compta</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-bolt"></i><h2 class="text-xl font-bold mt-4">Électronique</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-microchip"></i><h2 class="text-xl font-bold mt-4">Arduino</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-robot"></i><h2 class="text-xl font-bold mt-4">Auto</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-database"></i><h2 class="text-xl font-bold mt-4">SQL</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-globe"></i><h2 class="text-xl font-bold mt-4">Web</h2>
-            </button>
-            <button class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center">
-                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">SE</h2>
-            </button>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1E7xnMwhgvhhy8R4-te4Nnyam8GqfKNSo?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-code"></i><h2 class="text-xl font-bold mt-4">Programmation avancée 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1_7phS2RKZjhU_4_tnesTOrSJtzmQYE4X?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-cogs"></i><h2 class="text-xl font-bold mt-4">Informatique industrielle</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1-f3ETkftsSVVkQftm9dMtIKVM7Qon-Fj?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-language"></i><h2 class="text-xl font-bold mt-4">Anglais 4</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1F5AiH5t9ebgOyS1w8XELyXgigIYioH8L?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-book-open"></i><h2 class="text-xl font-bold mt-4">Comptabilité générale</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1NmJ-ij4RY3PeDWvoU6rMyoMfTKY3DO1R?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-bolt"></i><h2 class="text-xl font-bold mt-4">TEC 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/18mX8Ob7Rj_B76iwH8gB6APwzwRkY1J4h?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-lightbulb"></i><h2 class="text-xl font-bold mt-4">Systèmes d'exploitation 2</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1AzGbouJN45At1XcS6yzkNutE6m8jaTrV?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-database"></i><h2 class="text-xl font-bold mt-4">Base de données</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1pk-myspDHuyvFWZXSNQ7u6VniaIrClV_?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-globe"></i><h2 class="text-xl font-bold mt-4">Programmation Web</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/14E_WwlfJQ9aTMQk2urY3b8CHIQSbiPZu?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-mouse-pointer"></i><h2 class="text-xl font-bold mt-4">Programmation événementielle</h2>
+            </a>
+            <a href="https://drive.google.com/drive/folders/18GySP4CBIb7gclJRyb20XUQPQMAMNrWK?usp=drive_link" target="_blank" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+                <i class="icon fas fa-drafting-compass"></i><h2 class="text-xl font-bold mt-4">Conception des systèmes d'information 2</h2>
+            </a>
         </main>
         <footer class="mt-8 flex justify-center space-x-4">
             <button onclick="navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
             </button>
-            <button onclick="navigate('2ap-page', '2AP', 'Deuxième Année - Analyse et Programmation')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
+            <button onclick="navigate('2ap-page', '2AP', 'Deuxième Année - Années Préparatoires')" class="px-6 py-2 bg-gray-300 text-gray-800 font-bold rounded-full hover:bg-gray-400 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Retour à 2AP
             </button>
         </footer>
@@ -1698,10 +1111,10 @@
             <p class="text-sm text-gray-500">Accédez aux ressources par semestre académique.</p>
         </header>
         <main class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl mx-auto">
-            <button onclick="navigate('5iir-s9-page', 'S9', 'Modules - Neuvième semestre (5IIR)', '5iir-page', 'Cinquième Année - Ingénierie Informatique et Réseaux')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+            <button onclick="navigate('5iir-s9-page', 'S9', 'Modules - Neuvième semestre (5IIR)')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
                 <i class="icon fas fa-calendar-alt"></i><h2 class="text-xl font-bold mt-4">S9</h2><p class="text-sm text-gray-500">Neuvième semestre</p>
             </button>
-            <button onclick="navigate('5iir-s10-page', 'S10', 'Modules - Dixième semestre (5IIR)', '5iir-page', 'Cinquième Année - Ingénierie Informatique et Réseaux')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
+            <button onclick="navigate('5iir-s10-page', 'S10', 'Modules - Dixième semestre (5IIR)')" class="btn-card bg-white p-6 rounded-3xl flex flex-col items-center justify-center text-center cursor-pointer">
                 <i class="icon fas fa-calendar-alt"></i><h2 class="text-xl font-bold mt-4">S10</h2><p class="text-sm text-gray-500">Dixième semestre</p>
             </button>
         </main>
@@ -2893,8 +2306,8 @@
         </footer>
     </div>
 
-
 </div>
+
 
 <script>
     // JavaScript to handle page navigation
@@ -2903,7 +2316,7 @@
     const headerTitle = document.getElementById('header-title');
     const headerSubtitle = document.getElementById('header-subtitle');
     const homeHeaderTitle = `
-        <i class="fas fa-graduation-cap text-green-600 mr-2 sm:mr-4"></i> Study Hub
+        <img src="assets/emsi-logo.png" alt="EMSI Logo" class="h-12 w-12 mr-2 sm:mr-4 object-contain"/> Study Hub
     `;
     const homeHeaderSubtitle = `
         Centre de ressources académiques - Choisissez votre filière d\'études
@@ -2926,13 +2339,13 @@
             headerTitle.innerHTML = homeHeaderTitle;
             headerSubtitle.innerHTML = homeHeaderSubtitle;
         } else {
-            headerTitle.innerHTML = `<i class="fas fa-graduation-cap text-green-600 mr-2 sm:mr-4"></i> ${title}`;
+            headerTitle.innerHTML = `<img src=\"assets/emsi-logo.png\" alt=\"EMSI Logo\" class=\"h-12 w-12 mr-2 sm:mr-4 object-contain\"/> ${title}`;
             headerSubtitle.textContent = subtitle;
         }
 
         // Handle footer buttons visibility and content
-        const pageFooters = document.querySelectorAll('.page footer');
-        pageFooters.forEach(footer => footer.style.display = 'none');
+        const footers = document.querySelectorAll('footer:not([role="contentinfo"])');
+        footers.forEach(footer => footer.style.display = 'none');
         
         const currentPageFooter = targetPage.querySelector('footer');
         if (currentPageFooter) {
@@ -2954,595 +2367,78 @@
         }
     }
 
-    // Global state variables
-    let currentUser = {
-        name: 'Étudiant EMSI',
-        points: 0,
-        badges: [],
-        resourcesShared: 0
-    };
-
-    let isDarkMode = localStorage.getItem('darkMode') === 'true';
-    let searchFilters = {
-        filiere: '',
-        type: '',
-        annee: ''
-    };
-
-    let chatbotOpen = false;
-    let chatbotMessages = [];
-
-    // Initialize the app
-    document.addEventListener('DOMContentLoaded', function() {
+    // Initial call to set the home page active and header
+    document.addEventListener('DOMContentLoaded', () => {
         navigate('home-page', 'Study Hub', 'Centre de ressources académiques - Choisissez votre filière d\'études');
-        setupEventListeners();
-        applyDarkMode();
-        // initializeNotifications removed
-        initializeChatbot();
     });
-
-    function setupEventListeners() {
-        // Dark mode toggle
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        if (darkModeToggle) {
-            darkModeToggle.addEventListener('click', toggleDarkMode);
-        }
-        
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeSidebar = document.getElementById('close-sidebar');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        
-        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
-        if (closeSidebar) closeSidebar.addEventListener('click', closeMobileMenu);
-        if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeMobileMenu);
-        
-        // Notifications
-        const notificationsBtn = document.getElementById('notifications-btn');
-        const closeNotifications = document.getElementById('close-notifications');
-        
-        if (notificationsBtn) notificationsBtn.addEventListener('click', toggleNotifications);
-        if (closeNotifications) closeNotifications.addEventListener('click', closeNotifications);
-        
-        // Search functionality
-        const globalSearch = document.getElementById('global-search');
-        const searchFiltersBtn = document.getElementById('search-filters-btn');
-        const applyFilters = document.getElementById('apply-filters');
-        const clearFilters = document.getElementById('clear-filters');
-        
-        if (globalSearch) globalSearch.addEventListener('input', debounce(handleSearch, 300));
-        if (searchFiltersBtn) searchFiltersBtn.addEventListener('click', toggleSearchFilters);
-        if (applyFilters) applyFilters.addEventListener('click', applySearchFilters);
-        if (clearFilters) clearFilters.addEventListener('click', clearSearchFilters);
-        
-        // Chatbot
-        const chatbotToggle = document.getElementById('chatbot-toggle');
-        const closeChatbot = document.getElementById('close-chatbot');
-        const chatbotSend = document.getElementById('chatbot-send');
-        const chatbotInput = document.getElementById('chatbot-input');
-        
-        if (chatbotToggle) chatbotToggle.addEventListener('click', toggleChatbot);
-        if (closeChatbot) closeChatbot.addEventListener('click', closeChatbotFunction);
-        if (chatbotSend) chatbotSend.addEventListener('click', sendChatbotMessage);
-        if (chatbotInput) {
-            chatbotInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendChatbotMessage();
-            });
-        }
-    }
-
-    // Mobile Menu Functions
-    function openMobileMenu() {
-        const sidebar = document.getElementById('mobile-sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        
-        if (sidebar) {
-            sidebar.classList.add('open');
-            sidebar.setAttribute('aria-hidden', 'false');
-        }
-        if (overlay) overlay.classList.remove('hidden');
-        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-        const sidebar = document.getElementById('mobile-sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        
-        if (sidebar) {
-            sidebar.classList.remove('open');
-            sidebar.setAttribute('aria-hidden', 'true');
-        }
-        if (overlay) overlay.classList.add('hidden');
-        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = 'auto';
-    }
-
-    // Notification Functions
-    // initializeNotifications removed
-
-    function toggleNotifications() {
-        const panel = document.getElementById('notification-panel');
-        const btn = document.getElementById('notifications-btn');
-        
-        if (panel) {
-            panel.classList.toggle('open');
-            if (btn) {
-                btn.setAttribute('aria-expanded', panel.classList.contains('open'));
-            }
-        }
-    }
-
-    function closeNotifications() {
-        const panel = document.getElementById('notification-panel');
-        const btn = document.getElementById('notifications-btn');
-        
-        if (panel) {
-            panel.classList.remove('open');
-            if (btn) {
-                btn.setAttribute('aria-expanded', 'false');
-            }
-        }
-    }
-
-    // Chatbot Functions
-    function initializeChatbot() {
-        chatbotMessages = [
-            { type: 'bot', message: 'Bonjour ! Je suis votre assistant académique. Comment puis-je vous aider ?' }
-        ];
-        updateChatbotDisplay();
-    }
-
-    function toggleChatbot() {
-        const chatbot = document.getElementById('chatbot');
-        const toggle = document.getElementById('chatbot-toggle');
-        
-        if (chatbot && toggle) {
-            chatbotOpen = !chatbotOpen;
-            
-            if (chatbotOpen) {
-                chatbot.classList.add('open');
-                toggle.style.display = 'none';
-            } else {
-                chatbot.classList.remove('open');
-                toggle.style.display = 'block';
-            }
-        }
-    }
-
-    function closeChatbotFunction() {
-        const chatbot = document.getElementById('chatbot');
-        const toggle = document.getElementById('chatbot-toggle');
-        
-        if (chatbot && toggle) {
-            chatbot.classList.remove('open');
-            toggle.style.display = 'block';
-            chatbotOpen = false;
-        }
-    }
-
-    function sendChatbotMessage() {
-        const input = document.getElementById('chatbot-input');
-        if (!input) return;
-        
-        const message = input.value.trim();
-        
-        if (message) {
-            chatbotMessages.push({ type: 'user', message: message });
-            input.value = '';
-            
-            setTimeout(() => {
-                const botResponse = getBotResponse(message);
-                chatbotMessages.push({ type: 'bot', message: botResponse });
-                updateChatbotDisplay();
-            }, 1000);
-            
-            updateChatbotDisplay();
-        }
-    }
-
-    function getBotResponse(userMessage) {
-        const message = userMessage.toLowerCase();
-        
-        if (message.includes('examen') || message.includes('exam')) {
-            return 'Les examens sont listés dans la section Calendrier. Vous pouvez aussi consulter les ressources d\'examens corrigés dans chaque module.';
-        } else if (message.includes('cours') || message.includes('module')) {
-            return 'Pour accéder aux cours, sélectionnez votre filière, puis votre année et semestre. Tous les modules sont organisés par filière.';
-        } else if (message.includes('quiz') || message.includes('test')) {
-            return 'Les quiz interactifs sont disponibles dans la section Quiz. Vous pouvez tester vos connaissances par module.';
-        } else if (message.includes('aide') || message.includes('help')) {
-            return 'Je peux vous aider à naviguer dans Study Hub, trouver des ressources, consulter le calendrier des examens, et répondre à vos questions académiques.';
-        } else {
-            return 'Je comprends votre question. Pouvez-vous être plus spécifique ? Je peux vous aider avec les cours, examens, quiz, ou la navigation dans Study Hub.';
-        }
-    }
-
-    function updateChatbotDisplay() {
-        const container = document.getElementById('chatbot-messages');
-        if (!container) return;
-        
-        container.innerHTML = '';
-        
-        chatbotMessages.forEach(msg => {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `flex items-start space-x-2 ${msg.type === 'user' ? 'justify-end' : ''}`;
-            
-            if (msg.type === 'bot') {
-                messageDiv.innerHTML = `
-                    <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-robot text-white text-xs" aria-hidden="true"></i>
-                    </div>
-                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 max-w-xs">
-                        <p class="text-sm text-gray-800 dark:text-white">${msg.message}</p>
-                    </div>
-                `;
-            } else {
-                messageDiv.innerHTML = `
-                    <div class="bg-green-500 rounded-lg p-3 max-w-xs">
-                        <p class="text-sm text-white">${msg.message}</p>
-                    </div>
-                    <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-user text-white text-xs" aria-hidden="true"></i>
-                    </div>
-                `;
-            }
-            
-            container.appendChild(messageDiv);
-        });
-        
-        container.scrollTop = container.scrollHeight;
-    }
-
-    // Dark Mode Functions
-    function toggleDarkMode() {
-        isDarkMode = !isDarkMode;
-        localStorage.setItem('darkMode', isDarkMode);
-        applyDarkMode();
-    }
-
-    function applyDarkMode() {
-        const body = document.body;
-        const darkModeIcon = document.getElementById('dark-mode-icon');
-        
-        if (isDarkMode) {
-            body.classList.add('dark');
-            if (darkModeIcon) {
-                darkModeIcon.className = 'fas fa-sun text-yellow-500';
-            }
-        } else {
-            body.classList.remove('dark');
-            if (darkModeIcon) {
-                darkModeIcon.className = 'fas fa-moon text-gray-600 dark:text-gray-300';
-            }
-        }
-    }
-
-    // Search Functions
-    function handleSearch(e) {
-        const query = e.target.value.toLowerCase().trim();
-        console.log('Searching for:', query);
-        
-        if (query.length > 0) {
-            // Add a small delay to avoid searching on every keystroke
-            clearTimeout(window.searchTimeout);
-            window.searchTimeout = setTimeout(() => {
-                performSearch(query);
-            }, 500); // Wait 500ms after user stops typing
-        } else {
-            // Clear any existing search messages
-            hideSearchMessage();
-        }
-    }
-
-    function performSearch(query) {
-        console.log('Performing search for:', query);
-        
-        // Define search mappings for direct navigation
-        const searchMappings = {
-            // Filières
-            'ap': 'ap-page',
-            'analyse': 'ap-page',
-            'programmation': 'ap-page',
-            'iir': 'iir-page',
-            'informatique': 'iir-page',
-            'réseaux': 'iir-page',
-            'gi': 'gi-page',
-            'génie industriel': 'gi-page',
-            'industriel': 'gi-page',
-            'gc': 'gc-page',
-            'génie civil': 'gc-page',
-            'civil': 'gc-page',
-            'gesi': 'gesi-page',
-            'électrique': 'gesi-page',
-            'systèmes intelligents': 'gesi-page',
-            'gf': 'gf-page',
-            'génie financier': 'gf-page',
-            'financier': 'gf-page',
-            
-            // Années
-            '2ap': '2ap-page',
-            '3ap': '3ap-page',
-            '4ap': '4ap-page',
-            '5ap': '5ap-page',
-            '2iir': '2iir-page',
-            '3iir': '3iir-page',
-            '4iir': '4iir-page',
-            '5iir': '5iir-page',
-            '2gi': '2gi-page',
-            '3gi': '3gi-page',
-            '4gi': '4gi-page',
-            '5gi': '5gi-page',
-            '2gc': '2gc-page',
-            '3gc': '3gc-page',
-            '4gc': '4gc-page',
-            '5gc': '5gc-page',
-            '2gesi': '2gesi-page',
-            '3gesi': '3gesi-page',
-            '4gesi': '4gesi-page',
-            '5gesi': '5gesi-page',
-            '2gf': '2gf-page',
-            '3gf': '3gf-page',
-            '4gf': '4gf-page',
-            '5gf': '5gf-page',
-            
-            // Semestres
-            's1': 's1-page',
-            's2': 's2-page',
-            's3': 's3-page',
-            's4': 's4-page',
-            's5': 's5-page',
-            's6': 's6-page',
-            'semestre 1': 's1-page',
-            'semestre 2': 's2-page',
-            'semestre 3': 's3-page',
-            'semestre 4': 's4-page',
-            'semestre 5': 's5-page',
-            'semestre 6': 's6-page',
-            
-            // Pages spéciales
-            'calendrier': 'calendar-page',
-            'examen': 'calendar-page',
-            'examens': 'calendar-page',
-            'classement': 'leaderboard-page',
-            'quiz': 'quiz-page',
-            'test': 'quiz-page',
-            'module': 'module-page',
-            'cours': 'module-page',
-            'td': 'module-page',
-            'travaux dirigés': 'module-page'
-        };
-        
-        // Search for exact matches first
-        const normalizedQuery = query.toLowerCase().trim();
-        
-        for (const [searchTerm, pageId] of Object.entries(searchMappings)) {
-            if (normalizedQuery === searchTerm || normalizedQuery.includes(searchTerm)) {
-                console.log(`Found match: "${searchTerm}" -> navigating to ${pageId}`);
-                navigateToPage(pageId, searchTerm);
-                return;
-            }
-        }
-        
-        // If no exact match, show message
-        showSearchMessage(`Aucune page trouvée pour "${query}". Essayez: AP, IIR, GI, GC, GESI, GF, ou un numéro d'année (2AP, 3GI, etc.)`);
-    }
-
-    function navigateToPage(pageId, searchTerm) {
-        // Check if page exists
-        const page = document.getElementById(pageId);
-        if (!page) {
-            showSearchMessage(`Page "${searchTerm}" non trouvée. Vérifiez l'orthographe.`);
-            return;
-        }
-        
-        // Get page title based on pageId
-        const pageTitles = {
-            'ap-page': 'AP - Analyse et Programmation',
-            'iir-page': 'IIR - Ingénierie Informatique et Réseaux',
-            'gi-page': 'GI - Génie Industriel',
-            'gc-page': 'GC - Génie Civil',
-            'gesi-page': 'GESI - Génie Électrique et Systèmes Intelligents',
-            'gf-page': 'GF - Génie Financier',
-            'calendar-page': 'Calendrier académique',
-            'leaderboard-page': 'Classement des contributeurs',
-            'quiz-page': 'Quiz interactifs',
-            'module-page': 'Modules et ressources'
-        };
-        
-        const title = pageTitles[pageId] || searchTerm;
-        const subtitle = `Résultat de recherche pour "${searchTerm}"`;
-        
-        // Navigate to the page
-        navigate(pageId, title, subtitle);
-        
-        // Clear search input
-        const searchInput = document.getElementById('global-search');
-        if (searchInput) {
-            searchInput.value = '';
-        }
-        
-        // Show success message
-        showSearchMessage(`Redirection vers ${title}`, 'success');
-    }
-
-    function showSearchMessage(message, type = 'info') {
-        let messageDiv = document.getElementById('search-message');
-        if (!messageDiv) {
-            messageDiv = document.createElement('div');
-            messageDiv.id = 'search-message';
-            document.body.appendChild(messageDiv);
-        }
-        
-        // Set different styles based on message type
-        if (type === 'success') {
-            messageDiv.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-300 text-green-800 px-4 py-2 rounded-lg shadow-lg z-50';
-        } else {
-            messageDiv.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-yellow-100 border border-yellow-300 text-yellow-800 px-4 py-2 rounded-lg shadow-lg z-50';
-        }
-        
-        messageDiv.textContent = message;
-        messageDiv.style.display = 'block';
-        
-        // Hide message after 3 seconds
-        setTimeout(() => {
-            hideSearchMessage();
-        }, 3000);
-    }
-
-    function hideSearchMessage() {
-        const messageDiv = document.getElementById('search-message');
-        if (messageDiv) {
-            messageDiv.style.display = 'none';
-        }
-    }
-
-    function toggleSearchFilters() {
-        const filters = document.getElementById('search-filters');
-        if (filters) {
-            filters.classList.toggle('hidden');
-        }
-    }
-
-    function applySearchFilters() {
-        const filiereSelect = document.getElementById('filter-filiere');
-        const typeSelect = document.getElementById('filter-type');
-        const anneeSelect = document.getElementById('filter-annee');
-        
-        if (filiereSelect) searchFilters.filiere = filiereSelect.value;
-        if (typeSelect) searchFilters.type = typeSelect.value;
-        if (anneeSelect) searchFilters.annee = anneeSelect.value;
-        
-        console.log('Applied filters:', searchFilters);
-        const filters = document.getElementById('search-filters');
-        if (filters) {
-            filters.classList.add('hidden');
-        }
-    }
-
-    function clearSearchFilters() {
-        const filiereSelect = document.getElementById('filter-filiere');
-        const typeSelect = document.getElementById('filter-type');
-        const anneeSelect = document.getElementById('filter-annee');
-        
-        if (filiereSelect) filiereSelect.value = '';
-        if (typeSelect) typeSelect.value = '';
-        if (anneeSelect) anneeSelect.value = '';
-        
-        searchFilters = { filiere: '', type: '', annee: '' };
-    }
-
-    // Utility Functions
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Rating System Functions
-    function rateResource(resourceId, rating) {
-        const ratings = JSON.parse(localStorage.getItem('resourceRatings') || '{}');
-        ratings[resourceId] = rating;
-        localStorage.setItem('resourceRatings', JSON.stringify(ratings));
-        
-        updateRatingDisplay(resourceId, rating);
-        addPoints(5); // Give points for rating
-    }
-
-    function updateRatingDisplay(resourceId, rating) {
-        const container = document.querySelector(`[data-resource-id="${resourceId}"] .rating-stars`);
-        if (!container) return;
-        
-        const stars = container.querySelectorAll('.star');
-        stars.forEach((star, index) => {
-            if (index < rating) {
-                star.classList.add('active');
-            } else {
-                star.classList.remove('active');
-            }
-        });
-    }
-
-    // Comment System Functions
-    function addComment(resourceId, comment) {
-        if (!comment.trim()) return;
-        
-        const comments = JSON.parse(localStorage.getItem('resourceComments') || '{}');
-        if (!comments[resourceId]) {
-            comments[resourceId] = [];
-        }
-        
-        comments[resourceId].push({
-            id: Date.now(),
-            text: comment,
-            author: currentUser.name,
-            timestamp: new Date().toISOString()
-        });
-        
-        localStorage.setItem('resourceComments', JSON.stringify(comments));
-        displayComments(resourceId);
-        
-        // Clear input
-        const input = document.getElementById(`comment-${resourceId}`);
-        if (input) input.value = '';
-        
-        addPoints(10); // Give points for commenting
-    }
-
-    function displayComments(resourceId) {
-        const comments = JSON.parse(localStorage.getItem('resourceComments') || '{}');
-        const resourceComments = comments[resourceId] || [];
-        
-        const container = document.querySelector(`[data-resource-id="${resourceId}"] .comments-container`);
-        if (!container) return;
-        
-        container.innerHTML = resourceComments.map(comment => `
-            <div class="comment bg-gray-50 dark:bg-gray-700 p-3 rounded-lg mb-2">
-                <div class="flex justify-between items-start mb-1">
-                    <span class="font-semibold text-sm text-gray-800 dark:text-white">${comment.author}</span>
-                    <span class="text-xs text-gray-500 dark:text-gray-400">${new Date(comment.timestamp).toLocaleDateString()}</span>
-                </div>
-                <p class="text-sm text-gray-700 dark:text-gray-300">${comment.text}</p>
-            </div>
-        `).join('');
-    }
-
-    // Gamification Functions
-    function addPoints(points) {
-        currentUser.points += points;
-        saveUserData();
-        updateUserInterface();
-    }
-
-    // Badge system removed - no longer needed
-
-    // Quiz Functions
-    function startQuiz(quizId) {
-        console.log('Starting quiz:', quizId);
-        alert(`Démarrage du quiz ${quizId} - Fonctionnalité en développement !`);
-    }
 </script>
 
-    <!-- Footer -->
-    <footer class="bg-white text-gray-600 text-center p-4 border-t border-green-200 w-full transition-colors duration-300">
-        <div class="max-w-6xl mx-auto">
-            <p class="text-sm">
-    Développé par 
-                <a href="https://www.linkedin.com/in/aymane-fakihi-9a3435335/" target="_blank" class="text-green-600 dark:text-green-400 font-bold hover:underline transition-colors" aria-label="Profil LinkedIn d'Aymane Fakihi">AYMANE FAKIHI</a>
+<!-- Footer principal -->
+<footer role="contentinfo" class="bg-[#0a1a0f] text-[#0b8e36] py-8 px-4 sm:px-6 lg:px-8 mt-auto">
+    <div class="max-w-7xl mx-auto">
+        <!-- Contenu principal en deux colonnes -->
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-6">
+            <!-- Colonne gauche - Liens sociaux -->
+            <div class="flex flex-col space-y-4">
+                <h3 class="text-lg font-semibold mb-2">Suivez-nous</h3>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://www.instagram.com/emsistudyhub?igsh=NjdrNWo1OWl6bzF4" 
+                       target="_blank" 
+                       class="flex items-center space-x-2 text-[#0b8e36] hover:text-green-300 transition-colors duration-200 hover:scale-110 transform"
+                       aria-label="Instagram EMSI StudyHub">
+                        <i class="fab fa-instagram text-xl"></i>
+                        <span class="text-sm">Instagram</span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LodBwdVpfI55XgUZtdJLur" 
+                       target="_blank" 
+                       class="flex items-center space-x-2 text-[#0b8e36] hover:text-green-300 transition-colors duration-200 hover:scale-110 transform"
+                       aria-label="WhatsApp Community">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span class="text-sm">WhatsApp Community</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/14y1irZMQBS-P0d7ps98TUG_YFehK7tsR?usp=drive_link" 
+                       target="_blank" 
+                       class="flex items-center space-x-2 text-[#0b8e36] hover:text-green-300 transition-colors duration-200 hover:scale-110 transform"
+                       aria-label="StudyHub Drive">
+                        <i class="fab fa-google-drive text-xl"></i>
+                        <span class="text-sm">StudyHub Drive</span>
+                    </a>
+                    <a href="mailto:emsistudyhub@gmail.com" 
+                       target="_blank" 
+                       class="flex items-center space-x-2 text-[#0b8e36] hover:text-green-300 transition-colors duration-200 hover:scale-110 transform"
+                       aria-label="Contact Email">
+                        <i class="fas fa-envelope text-xl"></i>
+                        <span class="text-sm">Contact / Contribute</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Colonne droite - Logo et copyright -->
+            <div class="flex flex-col items-center lg:items-end text-center lg:text-right">
+                <div class="flex items-center space-x-3 mb-3">
+                    <img src="assets/emsi-logo.png" alt="EMSI Logo" class="h-12 w-12 object-contain"/>
+                    <span class="text-xl font-bold">EMSI StudyHub</span>
+                </div>
+                <p class="text-sm text-green-600 mb-1">by students for students</p>
+                <p class="text-sm text-[#0b8e36]">
+                Développé par 
+                <a href="https://www.linkedin.com/in/aymane-fakihi-9a3435335/" 
+                   target="_blank" 
+                   class="text-green-400 font-bold hover:underline transition-colors hover:text-green-300" 
+                   aria-label="Profil LinkedIn d'Aymane Fakihi">AYMANE FAKIHI</a>
                 et 
-                <a href="https://www.linkedin.com/in/yezziani/" target="_blank" class="text-green-600 dark:text-green-400 font-bold hover:underline transition-colors" aria-label="Profil LinkedIn de Yassine Ezziani">YASSINE EZZIANI</a>
-            </p>
-            <p class="text-xs mt-2 text-gray-500 dark:text-gray-500">
-                © 2024 Study Hub EMSI - Plateforme académique interactive
-            </p>
+                <a href="https://www.linkedin.com/in/yezziani/" 
+                   target="_blank" 
+                   class="text-green-400 font-bold hover:underline transition-colors hover:text-green-300" 
+                   aria-label="Profil LinkedIn de Yassine Ezziani">YASSINE EZZIANI</a>
+                 </p>
+                <p class="text-xs text-green-600 mb-1">© 2025 Class Representatives Council EMSIby students for students</p>
+            </div>
         </div>
+
+        
+    </div>
 </footer>
+
 </body>
 </html>
